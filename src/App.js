@@ -25,6 +25,7 @@ function App() {
   const [bottomText, setBottomText] = useState("");
   const [topText, setTopText] = useState("");
   const canvasRef = useRef(null);
+  const [draftImage,setDraftImage] = useState([])
 
   const saveImageToLocal = (event) => {
     let link = event.currentTarget;
@@ -35,6 +36,33 @@ function App() {
     
 };
 
+const createBlob = () => {
+ 
+  // canvasRef.current.toBlob((blob) => {
+    // const newImg = document.createElement('img');
+    // const url = URL.createObjectURL(blob,'image/png');
+    // setDraftImage(url)
+    // console.log(url)
+  
+    // newImg.onload = () => {
+    //   // no longer need to read the blob so it's revoked
+    //   URL.revokeObjectURL(url);
+    // };
+  
+    // newImg.src = url;
+    // document.body.appendChild(newImg);
+  // });
+ 
+   
+}
+
+const saveToDraft = () => {
+  const imageToSave = canvasRef.current.toDataURL()
+ setDraftImage((prevImages) => [...prevImages,imageToSave])
+ drawElement(imageToSave)
+
+}
+
   const fetchImages = async () => {
     const req = await fetch("https://api.imgflip.com/get_memes");
     const {
@@ -42,6 +70,18 @@ function App() {
     } = await req.json();
     setRandomImages(memes.slice(0, 10));
   };
+
+  const drawElement = (imageSrc) => {
+      var ctx = canvasRef.current.getContext("2d");
+
+      var image = new Image();
+          image.onload = function() {
+            ctx.drawImage(image, 0, 0);
+          };
+            image.src = imageSrc
+
+        return <img src={image.src} alt="dsd" />;
+  }
 
   useEffect(() => {
     const memImage = new Image();
@@ -51,7 +91,7 @@ function App() {
     memImage.onload = () => {
       setImage(memImage);
     };
-    console.log(memImage,'mem image')
+
   }, []);
 
  
@@ -96,6 +136,8 @@ function App() {
       <h1>MEM GEN</h1>
 
       <div className="images-container">
+      
+      <button onClick={() => saveToDraft()}>save image</button>
         <div className="canvas-wrapper">
         <a id="download_image_link" href="download_link" onClick={saveImageToLocal}>Download Image</a>
 
@@ -112,12 +154,15 @@ function App() {
           />
           <canvas width={300} height={300} ref={canvasRef}></canvas>
         </div>
-        {randomImages.map((image) => (
-          <div key={image.id} className="image">
-            <img src={image.url} alt="" />
-          </div>
-        ))}
+       
+      
       </div>
+      <h2>draft Image</h2>
+      {draftImage.map((image) => drawElement(image))}
+        {/* {draftImage.map((image) => 
+        <img src={image.url}></img>
+        )} */}
+
     </div>
   );
 }
