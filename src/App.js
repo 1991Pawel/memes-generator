@@ -134,29 +134,34 @@ const saveToDraft = () => {
   return (
     <div className="App">
       <h1>MEM GEN</h1>
-
+     
       <div className="images-container">
       
-      <button onClick={() => saveToDraft()}>save image</button>
-        <div className="canvas-wrapper">
-        <a id="download_image_link" href="download_link" onClick={saveImageToLocal}>Download Image</a>
 
-          <input
+        <div className="canvas-wrapper">
+       
+         <div>
+           text góra
+         <input
             onChange={(e) => setTopText(e.target.value)}
             value={topText}
             type="text"
           />
+         </div>
           <br />
-          <input
+         <div>text dół 
+         <input
             onChange={(e) => setBottomText(e.target.value)}
             value={bottomText}
             type="text"
-          />
+          /></div>
           <canvas width={300} height={300} ref={canvasRef}></canvas>
         </div>
        
       
       </div>
+      <div className="button-wrapper"> <button className="button" onClick={() => saveToDraft()}>GOTOWE</button>
+      <a className="link" id="download_image_link" href="download_link" onClick={saveImageToLocal}>Zapisz na komputer</a></div>
       <h2>draft Image</h2>
       {draftImage.map((image) => drawElement(image))}
         {/* {draftImage.map((image) => 
