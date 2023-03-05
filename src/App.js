@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
 import supabase from "./config/supabaseClient";
-
+import { decode } from 'base64-arraybuffer'
 
 function useWindowSize() {
   const [size, setSize] = useState([window.innerHeight, window.innerWidth]);
@@ -81,12 +81,32 @@ const createBlob = () => {
    
 }
 
-const saveToDraft = () => {
-  const imageToSave = canvasRef.current.toDataURL()
- setDraftImage((prevImages) => [...prevImages,imageToSave])
- drawElement(imageToSave)
+const handleSaveImage = async () => {
+  let storageUrl = '/storage/v1/object/public/mems/'
+  let id = + new Date()
+  let fileName = `${id}.png`;
 
+  const imageToSave = canvasRef.current.toDataURL("image/jpeg").split(';base64,')[1];
+  const { data, error } = await supabase
+  .storage
+  .from('mems')
+  .upload(fileName, decode(imageToSave), {
+    contentType: 'image/png'
+  })
+  if(data) {
+    const { error } = await supabase
+  .from('mem')
+  .insert({ id, img_src:`${process.env.REACT_APP_SUPABASE_URL + storageUrl + data.path}`})
+  alert('Zapisano')
+  }
 }
+
+// const saveToDraft = () => {
+//   const imageToSave = canvasRef.current.toDataURL()
+//  setDraftImage((prevImages) => [...prevImages,imageToSave])
+//  drawElement(imageToSave)
+
+// }
 
   const fetchImages = async () => {
     const req = await fetch("https://api.imgflip.com/get_memes");
@@ -160,7 +180,9 @@ const saveToDraft = () => {
   return (
     <div className="App">
       <h1>MEM GEN</h1>
-     
+      <button onClick={handleSaveImage} className="button">
+        Zapisz
+      </button>
       <div className="images-container">
       
 
@@ -189,6 +211,7 @@ const saveToDraft = () => {
   
   {mem && (
     <div>
+    
       {mem.map((data) => (
         <div>
           <img src={data.img_src} alt="test" />
@@ -196,7 +219,7 @@ const saveToDraft = () => {
       ))}
     </div>
   )}
-      <div className="button-wrapper"> <button className="button" onClick={() => saveToDraft()}>GOTOWE</button>
+      <div className="button-wrapper"> 
       <a className="link" id="download_image_link" href="download_link" onClick={saveImageToLocal}>Zapisz na komputer</a></div>
       <h2>draft Image</h2>
       {draftImage.map((image) => drawElement(image))}
