@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect, useRef } from "react";
+import supabase from "./config/supabaseClient";
 
 
 function useWindowSize() {
@@ -26,6 +27,8 @@ function App() {
   const [topText, setTopText] = useState("");
   const canvasRef = useRef(null);
   const [draftImage,setDraftImage] = useState([])
+
+  console.log(supabase)
 
   const saveImageToLocal = (event) => {
     let link = event.currentTarget;
