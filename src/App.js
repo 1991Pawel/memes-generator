@@ -27,8 +27,30 @@ function App() {
   const [topText, setTopText] = useState("");
   const canvasRef = useRef(null);
   const [draftImage,setDraftImage] = useState([])
+  const [error,setError] = useState(null);
+  const [mem,setMem] = useState(null);
 
-  console.log(supabase)
+  const fetchData = async() => {
+    const { data, error } = await supabase
+  .from('mem')
+  .select()
+    if(error) {
+      setError('Błąd')
+      setMem(null);
+    }
+    if(data) {
+      setMem(data);
+      setError(null)
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+    let image = canvasRef.current.toDataURL('image/png');
+    // console.log(image)
+  },[])
+
+
 
   const saveImageToLocal = (event) => {
     let link = event.currentTarget;
@@ -94,6 +116,7 @@ const saveToDraft = () => {
     memImage.onload = () => {
       setImage(memImage);
     };
+
 
   }, []);
 
@@ -163,6 +186,16 @@ const saveToDraft = () => {
        
       
       </div>
+  
+  {mem && (
+    <div>
+      {mem.map((data) => (
+        <div>
+          <img src={data.img_src} alt="test" />
+        </div>
+      ))}
+    </div>
+  )}
       <div className="button-wrapper"> <button className="button" onClick={() => saveToDraft()}>GOTOWE</button>
       <a className="link" id="download_image_link" href="download_link" onClick={saveImageToLocal}>Zapisz na komputer</a></div>
       <h2>draft Image</h2>
