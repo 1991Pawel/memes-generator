@@ -5,12 +5,32 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 20px;
 }
 
 .images-container {
   display: flex;
   
   
+  
+}
+.save-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px;
+
+
+}
+.image {
+  width: 100%;
+  height: auto;
+  border:5px solid black
+
+  
+}
+.image img {
+  width: 100%;
+  height: auto;
 }
 
 .button,.link {
@@ -47,7 +67,7 @@ body {
 }
 
 .canvas-wrapper {
-  border: 5px solid pink;
+ 
   width: 100%;
   height: 100%;
 
