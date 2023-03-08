@@ -25,11 +25,12 @@ const LoginPage = () => {
       password: "example-password",
     });
     if (data) {
+      sessionStorage.setItem("user_id", JSON.stringify(data.session.user.id));
       sessionStorage.setItem(
         "token",
         JSON.stringify(data.session.access_token)
       );
-
+      console.log(data);
       setUser(data);
       navigate("/dashboard");
     }
@@ -64,7 +65,8 @@ const LoginPage = () => {
             />
           </label>
         </div>
-        <button onClick={loginUser}>Register</button>
+        <button onClick={loginUser}>LOGIN</button>
+        <button onClick={registerUser}>Register</button>
       </form>
       {/* <form>
         <div>

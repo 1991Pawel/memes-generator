@@ -16,9 +16,10 @@ function App() {
           {/* <PrivateRoute component={Dashboard} path="/dashboard" exact /> */}
 
           <Route element={<PrivateRoute />}>
-            <Route element={<Dashboard />} exact path="/dashboard"></Route>
+            {/* <Route element={<Dashboard />} exact path="/dashboard"></Route> */}
           </Route>
           <Route element={<LoginPage />} path="/" />
+          <Route element={<Dashboard />} path="/dashboard" />
         </Routes>
       </Router>
     </div>

@@ -9,6 +9,7 @@ root.render(
   <React.StrictMode>
     <UserContextProvider>
       <App />
+      <script>console.log('testdsad')</script>
     </UserContextProvider>
   </React.StrictMode>
 );
