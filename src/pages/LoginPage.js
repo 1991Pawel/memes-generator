@@ -25,6 +25,11 @@ const LoginPage = () => {
       password: "example-password",
     });
     if (data) {
+      sessionStorage.setItem(
+        "token",
+        JSON.stringify(data.session.access_token)
+      );
+
       setUser(data);
       navigate("/dashboard");
     }
