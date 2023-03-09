@@ -24,7 +24,6 @@ const LoginPage = () => {
       email: email,
       password: password,
     });
-    console.log(data, "użytkownik");
     if (data) {
       sessionStorage.setItem("user_id", JSON.stringify(data.session.user.id));
       sessionStorage.setItem(

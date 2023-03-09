@@ -92,10 +92,7 @@ function Dashboard() {
           process.env.REACT_APP_SUPABASE_URL + storageUrl + data.path
         }`,
       });
-      {
-        console.log(sessionStorage.getItem("user_id"));
-        console.log(JSON.parse(user_id));
-      }
+
       if (!error) {
         alert("Zapisano");
       }
@@ -108,6 +105,15 @@ function Dashboard() {
   //  drawElement(imageToSave)
 
   // }
+
+  const removeMem = async (item) => {
+    const { error } = await supabase
+      .from("mem")
+      .delete()
+      .eq("id", item.id)
+      .select();
+    console.log("wywal", item.id);
+  };
 
   const fetchImages = async () => {
     const req = await fetch("https://api.imgflip.com/get_memes");
@@ -206,6 +212,7 @@ function Dashboard() {
         <div className="save-images">
           {mem.map((data) => (
             <div className="image" key={data.id}>
+              <button onClick={(e) => removeMem(data)}>remove</button>
               <img src={data.img_src} alt="test" />
             </div>
           ))}

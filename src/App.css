@@ -1,12 +1,6 @@
 .App {
   text-align: center;
 }
-@media print {
-  html,
-  body {
-    display: none;
-  }
-}
 
 .App-logo {
   height: 40vmin;
