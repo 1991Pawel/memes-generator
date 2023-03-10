@@ -1,13 +1,16 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import styles from "./app.module.css";
-import { Input } from "./components/Input/Input";
+import { Footer } from "./components/Footer/Footer";
+import { RegisterForm } from "./components/RegisterForm/RegisterForm.module";
+import { Header } from "./components/Header/Header";
 
 function App() {
   return (
     <div className="App">
-      <Input label="test" name="test" />
+      <Header />
+      <RegisterForm />
+      {/* <Input label="Email" name="Email" />
+      <Input label="Hasło" name="Hasło" />
+      <Button>Zaloguj</Button> */}
+      <Footer />
     </div>
   );
 }

@@ -12,8 +12,10 @@ export const Input = ({ name, label, ...rest }: InputProps) => {
   }
   return (
     <div className={s.wrapper}>
-      <label htmlFor={name}>{label}</label>
-      <input id={name}></input>
+      <label className={s.label} htmlFor={name}>
+        {label}
+      </label>
+      <input className={s.input} id={name}></input>
     </div>
   );
 };
