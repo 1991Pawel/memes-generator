@@ -150,25 +150,25 @@ function Dashboard() {
     console.log("wywal", item.id);
   };
 
-  const fetchImages = async () => {
-    const req = await fetch("https://api.imgflip.com/get_memes");
-    const {
-      data: { memes },
-    } = await req.json();
-    setRandomImages(memes.slice(0, 10));
-  };
+  // const fetchImages = async () => {
+  //   const req = await fetch("https://api.imgflip.com/get_memes");
+  //   const {
+  //     data: { memes },
+  //   } = await req.json();
+  //   setRandomImages(memes.slice(0, 10));
+  // };
 
-  const drawElement = (imageSrc) => {
-    var ctx = canvasRef.current.getContext("2d");
+  // const drawElement = (imageSrc) => {
+  //   var ctx = canvasRef.current.getContext("2d");
 
-    var image = new Image();
-    image.onload = function () {
-      ctx.drawImage(image, 0, 0);
-    };
-    image.src = imageSrc;
+  //   var image = new Image();
+  //   image.onload = function () {
+  //     ctx.drawImage(image, 0, 0);
+  //   };
+  //   image.src = imageSrc;
 
-    return <img src={image.src} alt="dsd" />;
-  };
+  //   return <img src={image.src} alt="dsd" />;
+  // };
 
   useEffect(() => {
     const memImage = new Image();

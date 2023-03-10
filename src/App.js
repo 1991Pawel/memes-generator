@@ -16,11 +16,11 @@ function App() {
       <Router>
         <Routes>
           {/* <PrivateRoute component={Dashboard} path="/dashboard" exact /> */}
-          <Route element={<PrivateRoute />}>
+          {/* <Route element={<PrivateRoute />}>
             <Route element={<Dashboard />} exact path="/dashboard" />
-          </Route>
+          </Route> */}
           <Route element={<LoginPage />} path="/" />
-          {/* <Route element={<Dashboard />} path="/dashboard" /> */}
+          <Route element={<Dashboard />} path="/dashboard" />
         </Routes>
       </Router>
     </div>
