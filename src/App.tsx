@@ -1,14 +1,11 @@
 import { Footer } from "./components/Footer/Footer";
 
-import { Header } from "./components/Header/Header";
-import { Modal } from "./components/Modal/Modal";
-import { LoginForm } from "components/LoginForm/LoginForm.module";
+import { Header } from "./modules/header/Header/Header";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <LoginForm />
       <main className="main">Lorem ipsum dolor sit amet.</main>
       <Footer />
     </div>
