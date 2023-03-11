@@ -25,7 +25,7 @@ export const RegisterForm = () => {
         value={password}
       />
       <PasswordStrengthBar passwordValue={password} />
-      <Button>Zaloguj</Button>
+      <Button>Zarejestruj się</Button>
     </div>
   );
 };
