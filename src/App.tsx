@@ -1,15 +1,15 @@
 import { Footer } from "./components/Footer/Footer";
-import { RegisterForm } from "./components/RegisterForm/RegisterForm.module";
+
 import { Header } from "./components/Header/Header";
+import { Modal } from "./components/Modal/Modal";
+import { LoginForm } from "components/LoginForm/LoginForm.module";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <RegisterForm />
-      {/* <Input label="Email" name="Email" />
-      <Input label="Hasło" name="Hasło" />
-      <Button>Zaloguj</Button> */}
+      <LoginForm />
+      <main className="main">Lorem ipsum dolor sit amet.</main>
       <Footer />
     </div>
   );

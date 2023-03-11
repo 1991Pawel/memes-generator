@@ -6,11 +6,19 @@ import s from "./RegisterForm.module.css";
 
 export const RegisterForm = () => {
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   return (
     <div className={s.formWrapper}>
       <h2>Rejestracja</h2>
-      <Input label="Email" name="Email" />
       <Input
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Wpisz swój email..."
+        label="Email"
+        name="Email"
+        value={email}
+      />
+      <Input
+        placeholder="Wpisz hasło..."
         onChange={(e) => setPassword(e.target.value)}
         label="Hasło"
         name="Hasło"

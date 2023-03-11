@@ -70,7 +70,13 @@ h6 {
 }
 
 .App {
-  border: 1px solid red;
-  max-width: 500px;
   margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 20px;
 }
