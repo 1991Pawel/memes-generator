@@ -68,3 +68,9 @@ h6 {
 #root {
   isolation: isolate;
 }
+
+.App {
+  border: 1px solid red;
+  max-width: 500px;
+  margin: 0 auto;
+}

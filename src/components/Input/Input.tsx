@@ -15,7 +15,7 @@ export const Input = ({ name, label, ...rest }: InputProps) => {
       <label className={s.label} htmlFor={name}>
         {label}
       </label>
-      <input className={s.input} id={name}></input>
+      <input {...rest} className={s.input} id={name}></input>
     </div>
   );
 };
