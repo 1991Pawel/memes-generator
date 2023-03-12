@@ -1,18 +1,20 @@
-import { useState } from "react";
-import { Footer } from "./components/Footer/Footer";
-import { Header } from "./modules/header/Header/Header";
-import { LoginFormModal } from "components/LoginFormModal/LoginFormModal";
-import { RegisterModalForm } from "components/RegisterFormModal/RegisterFormModal";
 import { ModalContextProvider } from "components/Modal/ModalContext";
+import { PrivateRoutes } from "components/PrivateRoutes/PrivateRoutes";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
+import { Dashboard } from "pages/Dashboard";
 function App() {
   return (
     <ModalContextProvider>
       <div className="App">
-        <Header />
-        <main className="main">Lorem ipsum dolor sit amet.</main>
-        <Footer />
-        <LoginFormModal />
-        <RegisterModalForm />
+        <Router>
+          <Routes>
+            <Route element={<HomePage />} path="/" />
+            <Route element={<PrivateRoutes />}>
+              <Route element={<Dashboard />} path="/dashboard"></Route>
+            </Route>
+          </Routes>
+        </Router>
       </div>
     </ModalContextProvider>
   );
