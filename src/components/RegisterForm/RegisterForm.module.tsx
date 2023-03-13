@@ -1,6 +1,6 @@
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { PasswordStrengthBar } from "../PasswordStrengthBar/PasswordStrengthBar";
 import s from "./RegisterForm.module.css";
 import { registerUser } from "./index";
@@ -13,7 +13,7 @@ export const RegisterForm = () => {
   const navigate = useNavigate();
   const { handleError } = useModalContext();
 
-  const handleRegister = (e: any) => {
+  const handleRegister = (e: SyntheticEvent) => {
     e.preventDefault();
     registerUser({ password, email, navigate, handleError });
   };

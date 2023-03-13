@@ -1,13 +1,19 @@
 import s from "./PasswordStrengthBar.module.css";
 import cx from "classnames";
 
+interface PasswordStrengthBarProps {
+  passwordValue: string;
+}
+
 const passwordType = {
   week: { message: "Słabe", color: "red", colorBar: 1 },
   medium: { message: "Średnie", color: "#FFC72C", colorBar: 3 },
   strong: { message: "Śilne", color: "#00AB66", colorBar: 4 },
 };
 
-export const PasswordStrengthBar = ({ passwordValue }: any) => {
+export const PasswordStrengthBar = ({
+  passwordValue,
+}: PasswordStrengthBarProps) => {
   const strengthChecks = {
     length: false,
     hasUpperCase: false,

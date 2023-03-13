@@ -1,7 +1,7 @@
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
 import s from "./LoginForm.module.css";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import { loginUser } from "./index";
 import { useNavigate } from "react-router-dom";
 import { useModalContext } from "components/Modal/ModalContext";
@@ -11,7 +11,7 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const { handleError } = useModalContext();
 
-  const handleLogin = (e: any) => {
+  const handleLogin = (e: SyntheticEvent) => {
     e.preventDefault();
     loginUser({ email, password, navigate, handleError });
   };

@@ -1,11 +1,11 @@
 import supabase from "../../config/supabaseClient";
-import { useModalContext } from "components/Modal/ModalContext";
+import { ErrorModalType } from "components/Modal/ModalContext";
 
 interface loginUserProps {
   email: string;
   password: string;
   navigate: (a: string, b: { replace: boolean }) => void;
-  handleError: (error: any) => void;
+  handleError: (error: ErrorModalType) => void;
 }
 
 export const loginUser = async ({

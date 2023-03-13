@@ -1,11 +1,11 @@
 .inner {
   padding: 24px 0;
-  background: rgb(157, 20, 20);
+  background: #fff;
 }
 .content {
-  color: #fff;
+  color: red;
   text-align: center;
-  min-height: 500px;
+  min-height: 300px;
 }
 
 .title {
