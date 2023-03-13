@@ -4,11 +4,8 @@ import { useEffect, useState } from "react";
 export const UserInfo = () => {
   const userMetaDataJson = sessionStorage.getItem("user");
   const user = userMetaDataJson !== null ? JSON.parse(userMetaDataJson) : null;
-  const name = user.user.user_metadata.user_name;
-  const surname = user.user.user_metadata.user_surname;
-  const avatarName =
-    user.user.user_metadata.user_name[0] +
-    user.user.user_metadata.user_surname[0];
+  const userName = user.user.user_metadata.user_username;
+  const avatarName = userName[0] + userName[userName.length - 1];
 
   return (
     <div className={s.user}>

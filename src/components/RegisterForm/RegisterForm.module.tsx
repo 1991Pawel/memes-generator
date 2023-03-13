@@ -10,33 +10,26 @@ import { useModalContext } from "components/Modal/ModalContext";
 export const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
   const { handleError } = useModalContext();
 
   const handleRegister = (e: SyntheticEvent) => {
     e.preventDefault();
-    registerUser({ password, email, navigate, handleError, surname, name });
+    registerUser({ password, email, navigate, handleError, userName });
   };
 
   return (
     <div className={s.formWrapper}>
       <h2>Rejestracja</h2>
       <Input
-        placeholder="Wpisz Imie..."
-        onChange={(e) => setName(e.target.value)}
-        label="Imie"
-        name="Imie"
-        value={name}
+        placeholder="Wpisz nazwę użytkownika..."
+        onChange={(e) => setUserName(e.target.value)}
+        label="Nazwa użytkownika"
+        name="Nazwa użytkownika"
+        value={userName}
       />
-      <Input
-        placeholder="Wpisz Nazwisko..."
-        onChange={(e) => setSurname(e.target.value)}
-        label="Naziwsko"
-        name="Naziwsko"
-        value={surname}
-      />
+
       <Input
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Wpisz swój email..."
