@@ -1,5 +1,4 @@
 .header {
-  height: 80px;
   background: #3a3a3a;
   color: #fff;
   display: flex;
@@ -9,6 +8,8 @@
 }
 .ctaGroup {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 30px;
   margin-left: auto;
+  min-width: 300px;
 }
