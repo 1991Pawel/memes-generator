@@ -9,11 +9,11 @@ export const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const { handleError } = useModalContext();
+  const { handleError, handleCloseLoginForm } = useModalContext();
 
   const handleLogin = (e: SyntheticEvent) => {
     e.preventDefault();
-    loginUser({ email, password, navigate, handleError });
+    loginUser({ email, password, navigate, handleError, handleCloseLoginForm });
   };
 
   return (

@@ -6,6 +6,7 @@ interface loginUserProps {
   password: string;
   navigate: (a: string, b: { replace: boolean }) => void;
   handleError: (error: ErrorModalType) => void;
+  handleCloseLoginForm: () => void;
 }
 
 export const loginUser = async ({
@@ -13,13 +14,14 @@ export const loginUser = async ({
   email,
   navigate,
   handleError,
+  handleCloseLoginForm,
 }: loginUserProps) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
   if (data.user) {
-    console.log(data, "user");
+    handleCloseLoginForm();
     navigate("/dashboard", { replace: true });
   }
   if (error) {
