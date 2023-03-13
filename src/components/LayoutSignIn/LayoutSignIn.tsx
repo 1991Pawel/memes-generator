@@ -10,7 +10,7 @@ interface LayoutSignInProps {
 
 export const LayoutSignIn = ({ children }: LayoutSignInProps) => {
   return (
-    <div>
+    <div className="App">
       <HeaderSignIn />
       <div className="main">{children}</div>
       <Footer />
