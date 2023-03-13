@@ -1,11 +1,21 @@
-.formWrapper {
-  padding: 0 24px;
+.inner {
+  padding: 24px 0;
+  background: rgb(157, 20, 20);
 }
-h2 {
+.content {
+  color: #fff;
   text-align: center;
-  margin: 24px 0;
+  min-height: 500px;
 }
 
-button {
-  margin: 24px 0;
+.title {
+  font-size: 21px;
+}
+
+.btn {
+  width: 200px;
+  border-radius: 50px;
+  display: block;
+  border: none;
+  margin: 0 auto;
 }

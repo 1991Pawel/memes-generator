@@ -4,14 +4,16 @@ import s from "./LoginForm.module.css";
 import { useState } from "react";
 import { loginUser } from "./index";
 import { useNavigate } from "react-router-dom";
+import { useModalContext } from "components/Modal/ModalContext";
 export const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const { handleError } = useModalContext();
 
   const handleLogin = (e: any) => {
     e.preventDefault();
-    loginUser({ email, password, navigate });
+    loginUser({ email, password, navigate, handleError });
   };
 
   return (

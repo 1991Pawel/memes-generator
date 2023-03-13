@@ -5,12 +5,14 @@ interface loginUserProps {
   email: string;
   password: string;
   navigate: (a: string, b: { replace: boolean }) => void;
+  handleError: (error: any) => void;
 }
 
 export const loginUser = async ({
   password,
   email,
   navigate,
+  handleError,
 }: loginUserProps) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -21,6 +23,6 @@ export const loginUser = async ({
     navigate("/dashboard", { replace: true });
   }
   if (error) {
-    // console.log(error, "errordsadas");
+    handleError(error);
   }
 };

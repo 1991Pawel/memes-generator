@@ -16,6 +16,7 @@ interface ModalState {
   handleCloseErrorModal: () => void;
   handleOpenErrorModal: () => void;
   handleError: (error: any) => void;
+  error: any;
 }
 
 export const ModalContext = createContext<ModalState | null>(null);
@@ -25,7 +26,7 @@ export const ModalContextProvider = ({
 }: ModalContextProviderProps) => {
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(false);
   const [isOpenRegisterForm, setIsOpenRegisterForm] = useState(false);
-  const [isOpenErrorModal, setIsOpenErrorModal] = useState(true);
+  const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
   const [error, setError] = useState({});
 
   const handleOpenLoginForm = () => {
@@ -48,7 +49,8 @@ export const ModalContextProvider = ({
   const handleCloseErrorModal = () => {
     setIsOpenErrorModal(false);
   };
-  const handleError = ({ error }: any) => {
+  const handleError = (error: any) => {
+    handleOpenErrorModal();
     setError(error);
   };
 
@@ -65,6 +67,7 @@ export const ModalContextProvider = ({
         handleOpenErrorModal,
         handleCloseErrorModal,
         handleError,
+        error,
       }}
     >
       {children}

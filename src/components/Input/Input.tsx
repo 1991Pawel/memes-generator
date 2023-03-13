@@ -7,9 +7,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
 }
 export const Input = ({ name, label, ...rest }: InputProps) => {
-  {
-    // console.log(s);
-  }
   return (
     <div className={s.wrapper}>
       <label className={s.label} htmlFor={name}>

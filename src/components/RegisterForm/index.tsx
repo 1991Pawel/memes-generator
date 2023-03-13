@@ -4,12 +4,14 @@ interface registerUserProps {
   email: string;
   password: string;
   navigate: (a: string, b: { replace: boolean }) => void;
+  handleError: (error: any) => void;
 }
 
 export const registerUser = async ({
   password,
   email,
   navigate,
+  handleError,
 }: registerUserProps) => {
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -19,6 +21,6 @@ export const registerUser = async ({
     navigate("/test", { replace: true });
   }
   if (error) {
-    console.log(error, "ERROR");
+    handleError(error);
   }
 };

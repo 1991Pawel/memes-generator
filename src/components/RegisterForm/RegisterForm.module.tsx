@@ -5,15 +5,17 @@ import { PasswordStrengthBar } from "../PasswordStrengthBar/PasswordStrengthBar"
 import s from "./RegisterForm.module.css";
 import { registerUser } from "./index";
 import { useNavigate } from "react-router-dom";
+import { useModalContext } from "components/Modal/ModalContext";
 
 export const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const { handleError } = useModalContext();
 
   const handleRegister = (e: any) => {
     e.preventDefault();
-    registerUser({ password, email, navigate });
+    registerUser({ password, email, navigate, handleError });
   };
 
   return (
