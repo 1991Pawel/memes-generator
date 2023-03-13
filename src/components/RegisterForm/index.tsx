@@ -2,6 +2,8 @@ import { NavigateFunction } from "react-router-dom";
 import supabase from "../../config/supabaseClient";
 
 interface RegisterUserProps {
+  name: string;
+  surname: string;
   email: string;
   password: string;
   navigate: NavigateFunction;
@@ -14,6 +16,8 @@ interface ErrorType {
 }
 
 export const registerUser = async ({
+  name,
+  surname,
   password,
   email,
   navigate,
@@ -22,6 +26,12 @@ export const registerUser = async ({
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        user_name: name,
+        user_surname: surname,
+      },
+    },
   });
   if (data.user) {
     navigate("/test", { replace: true });

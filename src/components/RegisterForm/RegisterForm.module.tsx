@@ -10,17 +10,33 @@ import { useModalContext } from "components/Modal/ModalContext";
 export const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const navigate = useNavigate();
   const { handleError } = useModalContext();
 
   const handleRegister = (e: SyntheticEvent) => {
     e.preventDefault();
-    registerUser({ password, email, navigate, handleError });
+    registerUser({ password, email, navigate, handleError, surname, name });
   };
 
   return (
     <div className={s.formWrapper}>
       <h2>Rejestracja</h2>
+      <Input
+        placeholder="Wpisz Imie..."
+        onChange={(e) => setName(e.target.value)}
+        label="Imie"
+        name="Imie"
+        value={name}
+      />
+      <Input
+        placeholder="Wpisz Nazwisko..."
+        onChange={(e) => setSurname(e.target.value)}
+        label="Naziwsko"
+        name="Naziwsko"
+        value={surname}
+      />
       <Input
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Wpisz swój email..."
@@ -35,6 +51,7 @@ export const RegisterForm = () => {
         name="Hasło"
         value={password}
       />
+
       <PasswordStrengthBar passwordValue={password} />
       <Button onClick={handleRegister}>Zarejestruj się</Button>
     </div>

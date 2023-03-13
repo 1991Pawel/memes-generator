@@ -1,7 +1,8 @@
 import supabase from "../../config/supabaseClient";
 import { ErrorModalType } from "components/Modal/ModalContext";
+import { Session, User } from "@supabase/gotrue-js";
 
-interface loginUserProps {
+interface LoginUserProps {
   email: string;
   password: string;
   navigate: (a: string, b: { replace: boolean }) => void;
@@ -9,19 +10,29 @@ interface loginUserProps {
   handleCloseLoginForm: () => void;
 }
 
+interface UserData {
+  user: User | null;
+  session: Session | null;
+}
+
+const saveUserToSession = (data: UserData) => {
+  sessionStorage.setItem("user", JSON.stringify(data));
+};
+
 export const loginUser = async ({
   password,
   email,
   navigate,
   handleError,
   handleCloseLoginForm,
-}: loginUserProps) => {
+}: LoginUserProps) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
-  if (data.user) {
+  if (data) {
     handleCloseLoginForm();
+    saveUserToSession(data);
     navigate("/dashboard", { replace: true });
   }
   if (error) {
