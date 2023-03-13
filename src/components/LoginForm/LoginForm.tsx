@@ -4,36 +4,39 @@ import s from "./LoginForm.module.css";
 import { SyntheticEvent, useState } from "react";
 import { loginUser } from "./index";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { useModalContext } from "components/Modal/ModalContext";
 export const LoginForm = () => {
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const { handleError, handleCloseLoginForm } = useModalContext();
-
-  const handleLogin = (e: SyntheticEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data: any) => {
+    const { password, email } = data;
     loginUser({ email, password, navigate, handleError, handleCloseLoginForm });
   };
 
   return (
     <form className={s.formWrapper}>
       <h2>Logowanie</h2>
+
       <Input
-        onChange={(e) => setEmail(e.target.value)}
         placeholder="Wpisz swój email..."
         label="Email"
-        name="Email"
-        value={email}
+        name="email"
+        register={register}
       />
       <Input
         placeholder="Wpisz hasło..."
-        onChange={(e) => setPassword(e.target.value)}
         label="Hasło"
-        name="Hasło"
-        value={password}
+        name="password"
+        register={register}
       />
-      <Button onClick={handleLogin}>Zaloguj</Button>
+
+      <Button onClick={handleSubmit(onSubmit)}>Zaloguj</Button>
     </form>
   );
 };

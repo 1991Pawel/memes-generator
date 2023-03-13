@@ -1,22 +1,24 @@
 import { Button } from "../Button/Button";
 import { Input } from "../Input/Input";
-import { SyntheticEvent, useState } from "react";
 import { PasswordStrengthBar } from "../PasswordStrengthBar/PasswordStrengthBar";
 import s from "./RegisterForm.module.css";
 import { registerUser } from "./index";
-import { useNavigate } from "react-router-dom";
 import { useModalContext } from "components/Modal/ModalContext";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 export const RegisterForm = () => {
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
   const { handleError } = useModalContext();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-  const handleRegister = (e: SyntheticEvent) => {
-    e.preventDefault();
-    registerUser({ password, email, navigate, handleError, userName });
+  const onSubmit: SubmitHandler<any> = (data) => {
+    console.log(data);
+    const { password, email, userName } = data;
+    registerUser({ password, email, handleError, userName });
   };
 
   return (
@@ -24,29 +26,25 @@ export const RegisterForm = () => {
       <h2>Rejestracja</h2>
       <Input
         placeholder="Wpisz nazwę użytkownika..."
-        onChange={(e) => setUserName(e.target.value)}
         label="Nazwa użytkownika"
-        name="Nazwa użytkownika"
-        value={userName}
+        name="userName"
+        register={register}
       />
-
       <Input
-        onChange={(e) => setEmail(e.target.value)}
         placeholder="Wpisz swój email..."
         label="Email"
-        name="Email"
-        value={email}
+        name="email"
+        register={register}
       />
       <Input
         placeholder="Wpisz hasło..."
-        onChange={(e) => setPassword(e.target.value)}
         label="Hasło"
-        name="Hasło"
-        value={password}
+        name="password"
+        register={register}
       />
 
-      <PasswordStrengthBar passwordValue={password} />
-      <Button onClick={handleRegister}>Zarejestruj się</Button>
+      <PasswordStrengthBar passwordValue={watch("password")} />
+      <Button onClick={handleSubmit(onSubmit)}>Zarejestruj się</Button>
     </div>
   );
 };

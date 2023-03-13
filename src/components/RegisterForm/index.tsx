@@ -5,7 +5,6 @@ interface RegisterUserProps {
   userName: string;
   email: string;
   password: string;
-  navigate: NavigateFunction;
   handleError: (error: ErrorType) => void;
 }
 
@@ -18,7 +17,6 @@ export const registerUser = async ({
   userName,
   password,
   email,
-  navigate,
   handleError,
 }: RegisterUserProps) => {
   const { data, error } = await supabase.auth.signUp({
@@ -31,7 +29,7 @@ export const registerUser = async ({
     },
   });
   if (data.user) {
-    navigate("/test", { replace: true });
+    //zalogowany
   }
   if (error) {
     handleError(error);

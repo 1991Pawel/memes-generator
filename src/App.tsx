@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { Dashboard } from "pages/Dashboard";
 import { ErrorModal } from "components/ErrorModal/ErrorModal";
+import { InfoModal } from "components/InfoModal/InfoModal";
 function App() {
   return (
     <ModalContextProvider>
@@ -17,6 +18,7 @@ function App() {
           </Routes>
         </Router>
         <ErrorModal />
+        {/* <InfoModal /> */}
       </div>
     </ModalContextProvider>
   );

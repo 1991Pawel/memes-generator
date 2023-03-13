@@ -12,7 +12,7 @@ const passwordType = {
 };
 
 export const PasswordStrengthBar = ({
-  passwordValue,
+  passwordValue = "",
 }: PasswordStrengthBarProps) => {
   const strengthChecks = {
     length: false,
