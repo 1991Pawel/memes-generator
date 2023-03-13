@@ -1,4 +1,5 @@
 import supabase from "../../config/supabaseClient";
+import { useModalContext } from "components/Modal/ModalContext";
 
 interface loginUserProps {
   email: string;
@@ -20,6 +21,6 @@ export const loginUser = async ({
     navigate("/dashboard", { replace: true });
   }
   if (error) {
-    console.log(error, "errordsadas");
+    // console.log(error, "errordsadas");
   }
 };

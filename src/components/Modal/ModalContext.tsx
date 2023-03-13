@@ -12,6 +12,10 @@ interface ModalState {
   isOpenRegisterForm: boolean;
   handleOpenRegisterForm: () => void;
   handleCloseRegisterForm: () => void;
+  isOpenErrorModal: boolean;
+  handleCloseErrorModal: () => void;
+  handleOpenErrorModal: () => void;
+  handleError: (error: any) => void;
 }
 
 export const ModalContext = createContext<ModalState | null>(null);
@@ -21,6 +25,8 @@ export const ModalContextProvider = ({
 }: ModalContextProviderProps) => {
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(false);
   const [isOpenRegisterForm, setIsOpenRegisterForm] = useState(false);
+  const [isOpenErrorModal, setIsOpenErrorModal] = useState(true);
+  const [error, setError] = useState({});
 
   const handleOpenLoginForm = () => {
     setIsOpenLoginForm(true);
@@ -36,6 +42,16 @@ export const ModalContextProvider = ({
     setIsOpenRegisterForm(false);
   };
 
+  const handleOpenErrorModal = () => {
+    setIsOpenErrorModal(true);
+  };
+  const handleCloseErrorModal = () => {
+    setIsOpenErrorModal(false);
+  };
+  const handleError = ({ error }: any) => {
+    setError(error);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -45,6 +61,10 @@ export const ModalContextProvider = ({
         isOpenRegisterForm,
         handleOpenRegisterForm,
         handleCloseRegisterForm,
+        isOpenErrorModal,
+        handleOpenErrorModal,
+        handleCloseErrorModal,
+        handleError,
       }}
     >
       {children}

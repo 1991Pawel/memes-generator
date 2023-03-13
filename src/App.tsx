@@ -3,6 +3,7 @@ import { PrivateRoutes } from "components/PrivateRoutes/PrivateRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { Dashboard } from "pages/Dashboard";
+import { ErrorModal } from "components/ErrorModal/ErrorModal";
 function App() {
   return (
     <ModalContextProvider>
@@ -15,6 +16,7 @@ function App() {
             </Route>
           </Routes>
         </Router>
+        <ErrorModal />
       </div>
     </ModalContextProvider>
   );

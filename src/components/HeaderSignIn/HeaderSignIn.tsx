@@ -1,14 +1,13 @@
 import s from "./HeaderSignIn.module.css";
-import { Button } from "components/Button/Button";
+
+import { ButtonLogout } from "components/ButtonLogout/ButtonLogout";
 
 export const HeaderSignIn = () => {
   return (
     <header className={s.header}>
       <p>Header</p>
       <div className={s.ctaGroup}>
-        <Button onClick={() => console.log("wylogowanie")} color="secondary">
-          Wyloguj się
-        </Button>
+        <ButtonLogout>Wyloguj</ButtonLogout>
       </div>
     </header>
   );
