@@ -7,6 +7,16 @@ import { loginUser } from "./index";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useModalContext } from "components/Modal/ModalContext";
+import { Session, User, AuthError } from "@supabase/gotrue-js";
+
+interface UserData {
+  user: User | null;
+  session: Session | null;
+}
+
+const saveUserToSession = (data: UserData) => {
+  sessionStorage.setItem("user", JSON.stringify(data));
+};
 
 const schema = yup
   .object({
@@ -27,9 +37,27 @@ export const LoginForm = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
+
+  const onSuccess = (data: UserData) => {
+    handleCloseLoginForm();
+    saveUserToSession(data);
+    navigate("/dashboard", { replace: true });
+  };
+  const onFailure = (error: AuthError) => {
+    handleError(error);
+  };
+
   const onSubmit = (data: FormValues) => {
     const { password, email } = data;
-    loginUser({ email, password, navigate, handleError, handleCloseLoginForm });
+    loginUser({
+      email,
+      password,
+      navigate,
+      handleError,
+      handleCloseLoginForm,
+      onSuccess,
+      onFailure,
+    });
   };
 
   return (
