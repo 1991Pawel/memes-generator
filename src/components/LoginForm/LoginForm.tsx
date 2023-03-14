@@ -41,15 +41,16 @@ export const LoginForm = () => {
         label="Email"
         name="email"
         register={register}
+        errors={errors}
       />
-      <span className={s.error}>{errors.email?.message}</span>
+
       <Input
         placeholder="Wpisz hasło..."
         label="Hasło"
         name="password"
         register={register}
+        errors={errors}
       />
-      <span className={s.error}>{errors.password?.message}</span>
 
       <Button onClick={handleSubmit(onSubmit)}>Zaloguj</Button>
     </form>

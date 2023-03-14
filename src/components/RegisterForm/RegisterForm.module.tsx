@@ -53,23 +53,24 @@ export const RegisterForm = () => {
         label="Nazwa użytkownika"
         name="userName"
         register={register}
+        errors={errors}
       />
-      <span className={s.error}>{errors.userName?.message}</span>
 
       <Input
         placeholder="Wpisz swój email..."
         label="Email"
         name="email"
         register={register}
+        errors={errors}
       />
-      <span className={s.error}>{errors.email?.message}</span>
+
       <Input
         placeholder="Wpisz hasło..."
         label="Hasło"
         name="password"
         register={register}
+        errors={errors}
       />
-      <span className={s.error}>{errors.password?.message}</span>
 
       <PasswordStrengthBar passwordValue={watch("password")} />
       <Button onClick={handleSubmit(onSubmit)}>Zarejestruj się</Button>
