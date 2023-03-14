@@ -1,13 +1,8 @@
 import { InputHTMLAttributes } from "react";
-import { UseFormRegister, FieldValues } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 import s from "./Input.module.css";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  label: string;
-  register: UseFormRegister<FieldValues>;
-}
-export const Input = ({ name, label, register, ...rest }: InputProps) => {
+export const Input = ({ name, label, register, ...rest }: any) => {
   return (
     <div className={s.wrapper}>
       <label className={s.label} htmlFor={name}>

@@ -6,6 +6,12 @@ import { registerUser } from "./index";
 import { useModalContext } from "components/Modal/ModalContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 
+interface FormValues {
+  password: string;
+  email: string;
+  userName: string;
+}
+
 export const RegisterForm = () => {
   const { handleError } = useModalContext();
   const {
@@ -13,10 +19,9 @@ export const RegisterForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<any> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { password, email, userName } = data;
     registerUser({ password, email, handleError, userName });
   };

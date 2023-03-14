@@ -14,9 +14,9 @@ export const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data: any) => {
-    const { password, email } = data;
-    loginUser({ email, password, navigate, handleError, handleCloseLoginForm });
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    // loginUser({ email, password, navigate, handleError, handleCloseLoginForm });
   };
 
   return (
