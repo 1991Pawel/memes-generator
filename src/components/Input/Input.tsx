@@ -1,8 +1,14 @@
-import { InputHTMLAttributes } from "react";
 import { UseFormRegister } from "react-hook-form";
 import s from "./Input.module.css";
 
-export const Input = ({ name, label, register, ...rest }: any) => {
+interface InputTypes {
+  name: string;
+  label: string;
+  placeholder: string;
+  register: any;
+}
+
+export const Input = ({ name, label, register, ...rest }: InputTypes) => {
   return (
     <div className={s.wrapper}>
       <label className={s.label} htmlFor={name}>

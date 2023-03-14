@@ -6,6 +6,12 @@ import { loginUser } from "./index";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useModalContext } from "components/Modal/ModalContext";
+
+interface FormValues {
+  password: string;
+  email: string;
+}
+
 export const LoginForm = () => {
   const navigate = useNavigate();
   const { handleError, handleCloseLoginForm } = useModalContext();
@@ -13,10 +19,10 @@ export const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (e: any) => {
-    e.preventDefault();
-    // loginUser({ email, password, navigate, handleError, handleCloseLoginForm });
+  } = useForm<FormValues>();
+  const onSubmit = (data: FormValues) => {
+    const { password, email } = data;
+    loginUser({ email, password, navigate, handleError, handleCloseLoginForm });
   };
 
   return (

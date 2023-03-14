@@ -32,10 +32,7 @@ export const ModalContextProvider = ({
   const [isOpenLoginForm, setIsOpenLoginForm] = useState(false);
   const [isOpenRegisterForm, setIsOpenRegisterForm] = useState(false);
   const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-  const [error, setError] = useState({
-    message: "",
-    name: "",
-  });
+  const [error, setError] = useState({ message: "", name: "" });
 
   const handleOpenLoginForm = () => {
     setIsOpenLoginForm(true);
