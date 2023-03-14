@@ -1,72 +1,83 @@
-body {
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
   margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+}
+/*
+  3. Allow percentage-based heights in the application
+*/
+html,
+body {
+  height: 100%;
+}
+/*
+  Typographic tweaks!
+  4. Add accessible line-height
+  5. Improve text rendering
+*/
+body {
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-family: "Titillium Web", sans-serif;
   -moz-osx-font-smoothing: grayscale;
 }
-
-.images-container {
-  display: flex;
-}
-.save-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  max-width: 500px;
-  margin: 0 auto;
-  margin-bottom: 20px;
-}
-.image {
-  width: 100%;
-  height: auto;
-  border: 5px solid black;
-}
-.image img {
-  width: 100%;
-  height: auto;
-}
-
-.button,
-.link {
-  background: blueviolet;
-  color: #fff;
+/*
+  6. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
-  width: 300px;
-  margin: 0 auto;
-  height: 40px;
+  max-width: 100%;
+}
+/*
+  7. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+  8. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+  9. Create a root stacking context
+*/
+#root {
+  isolation: isolate;
+}
 
+.App {
+  margin: 0 auto;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.button-wrapper {
-}
-
-.image {
-  /* width: 300px;
-  height: 300px;
-  border: 2px solid #363636;
-  margin: 10px;
-  cursor: pointer; */
-}
-
-.image img {
-  /* height: 100%;
+  flex-direction: column;
   width: 100%;
-  display: block;
-  object-fit: contain; */
 }
 
-.canvas-wrapper {
-  width: 100%;
-  height: 100%;
-
-  max-width: 500px;
-  margin: 0 auto;
-}
-canvas {
-  /* max-width: 500px; */
+.main {
+  flex-grow: 1;
+  padding: 20px;
 }

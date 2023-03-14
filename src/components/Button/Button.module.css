@@ -1,0 +1,17 @@
+.button {
+  color: #fff;
+  padding: 10px 20px;
+  width: 100%;
+  min-width: fit-content;
+  border-radius: 50px;
+  border: 0;
+  font-weight: 900;
+  cursor: pointer;
+}
+.secondary {
+  border: 2px solid #0057ff;
+  background: inherit;
+}
+.primary {
+  background: #0057ff;
+}
