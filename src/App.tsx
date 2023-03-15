@@ -1,17 +1,24 @@
-import { Footer } from "./components/Footer/Footer";
-
-import { Header } from "./components/Header/Header";
-import { Modal } from "./components/Modal/Modal";
-import { LoginForm } from "components/LoginForm/LoginForm.module";
-
+import { ModalContextProvider } from "components/Modal/ModalContext";
+import { PrivateRoutes } from "components/PrivateRoutes/PrivateRoutes";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
+import { Dashboard } from "pages/Dashboard";
+import { ErrorModal } from "components/ErrorModal/ErrorModal";
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <LoginForm />
-      <main className="main">Lorem ipsum dolor sit amet.</main>
-      <Footer />
-    </div>
+    <ModalContextProvider>
+      <div className="App">
+        <Router>
+          <Routes>
+            <Route element={<HomePage />} path="/" />
+            <Route element={<PrivateRoutes />}>
+              <Route element={<Dashboard />} path="/dashboard"></Route>
+            </Route>
+          </Routes>
+        </Router>
+        <ErrorModal />
+      </div>
+    </ModalContextProvider>
   );
 }
 
