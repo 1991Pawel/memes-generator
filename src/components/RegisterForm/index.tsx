@@ -1,11 +1,17 @@
-import { NavigateFunction } from "react-router-dom";
+import { Session, User, AuthError } from "@supabase/gotrue-js";
 import supabase from "../../config/supabaseClient";
+
+interface UserData {
+  user: User | null;
+  session: Session | null;
+}
 
 interface RegisterUserProps {
   userName: string;
   email: string;
   password: string;
-  handleError: (error: ErrorType) => void;
+  onFailure: (error: AuthError) => void;
+  onSuccess: (data: UserData) => void;
 }
 
 interface ErrorType {
@@ -17,7 +23,8 @@ export const registerUser = async ({
   userName,
   password,
   email,
-  handleError,
+  onSuccess,
+  onFailure,
 }: RegisterUserProps) => {
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -29,9 +36,9 @@ export const registerUser = async ({
     },
   });
   if (data.user) {
-    //zalogowany
+    onSuccess(data);
   }
   if (error) {
-    handleError(error);
+    onFailure(error);
   }
 };

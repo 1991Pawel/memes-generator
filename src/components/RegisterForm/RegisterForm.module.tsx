@@ -7,6 +7,7 @@ import s from "./RegisterForm.module.css";
 import { registerUser } from "./index";
 import { useModalContext } from "components/Modal/ModalContext";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Session, User, AuthError } from "@supabase/gotrue-js";
 
 const schema = yup
   .object({
@@ -28,8 +29,14 @@ const schema = yup
 
 type FormValues = yup.InferType<typeof schema>;
 
-export const RegisterForm = () => {
-  const { handleError } = useModalContext();
+interface RegisterFormTypes {
+  handleRegisterSucessfuly: () => void;
+}
+
+export const RegisterForm = ({
+  handleRegisterSucessfuly,
+}: RegisterFormTypes) => {
+  const { handleError, handleCloseRegisterForm } = useModalContext();
   const {
     register,
     handleSubmit,
@@ -39,9 +46,22 @@ export const RegisterForm = () => {
     resolver: yupResolver(schema),
   });
 
+  interface UserData {
+    user: User | null;
+    session: Session | null;
+  }
+
+  const onFailure = (error: AuthError) => {
+    handleError(error);
+  };
+  const onSuccess = (data: UserData) => {
+    handleCloseRegisterForm();
+    handleRegisterSucessfuly();
+  };
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { password, email, userName } = data;
-    registerUser({ password, email, handleError, userName });
+    registerUser({ password, email, onFailure, onSuccess, userName });
   };
 
   return (
