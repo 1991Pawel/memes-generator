@@ -1,0 +1,47 @@
+.card {
+  width: 100%;
+  border: 1px solid #d6d6d6;
+}
+
+.cardTop {
+  height: 60px;
+}
+.cardBottom {
+  padding: 0 10px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  gap: 15px;
+  padding-left: 10px;
+}
+.avatarImg {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: #2d2b2b;
+}
+.image {
+  width: 100%;
+}
+.name {
+  font-size: 12px;
+  font-weight: 900;
+  color: #2d2b2b;
+}
+.desc {
+  font-size: 12px;
+  color: #2d2b2b;
+}
+
+.icons {
+  display: flex;
+  gap: 35px;
+}
