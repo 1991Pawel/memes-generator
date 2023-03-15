@@ -32,7 +32,7 @@ export const PasswordStrengthBar = ({
   const verifiedList = Object.values(strengthChecks).filter((value) => value);
 
   const getActiveStrength = () => {
-    if (verifiedList.length == 5) return passwordType.strong;
+    if (verifiedList.length === 5) return passwordType.strong;
     if (verifiedList.length >= 2) return passwordType.medium;
     return passwordType.week;
   };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Modal } from "components/Modal/Modal";
 import { useModalContext } from "components/Modal/ModalContext";
 import s from "./ErrorModal.module.css";
@@ -15,9 +14,7 @@ export const ErrorModal = () => {
           <h2 className={s.title}>{name}</h2>
           <p className={s.desc}>{message}</p>
         </div>
-
         <Button color="primary" onClick={handleCloseErrorModal}>
-          {" "}
           Zamknij
         </Button>
       </div>

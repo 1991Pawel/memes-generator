@@ -1,8 +1,6 @@
 import React, { ReactNode } from "react";
 import { HeaderSignIn } from "components/HeaderSignIn/HeaderSignIn";
-
 import { Footer } from "components/Footer/Footer";
-import { RegisterModalForm } from "components/RegisterFormModal/RegisterFormModal";
 
 interface LayoutSignInProps {
   children: ReactNode;
