@@ -1,6 +1,5 @@
 import s from "./UserInfo.module.css";
-import { getUserData } from "./index";
-import { useEffect, useState } from "react";
+
 export const UserInfo = () => {
   const userMetaDataJson = sessionStorage.getItem("user");
   const user = userMetaDataJson !== null ? JSON.parse(userMetaDataJson) : null;

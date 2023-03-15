@@ -9,11 +9,7 @@ interface InputTypes {
   errors: any;
 }
 
-// FieldErrors<{
-//   userName: string;
-//   email: string;
-//   password: string;
-// }>
+
 
 export const Input = ({
   name,
