@@ -1,0 +1,20 @@
+.overlay {
+  background: #00000023;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+.modal {
+  position: fixed;
+  height: auto;
+  width: 90%;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  z-index: 100;
+  border-radius: 12px;
+  overflow-y: auto;
+  max-height: 90vh;
+}
