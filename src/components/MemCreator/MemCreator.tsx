@@ -75,16 +75,21 @@ export const MemCreator = () => {
     let storageUrl = "/storage/v1/object/public/mems/";
     let id = +new Date();
     let fileName = `${id}.png`;
-    let user_id = sessionStorage.getItem("user_id");
+    let getUser = sessionStorage.getItem("user");
+    let parseUser = getUser ? JSON.parse(getUser) : null;
+    let user_id = parseUser.user?.id;
+
     const { data, error } = await supabase.storage
       .from("mems")
       .upload(fileName, image, {
         contentType: "image/png",
       });
+
     if (data && user_id) {
+      console.log("wejdz", data, user_id);
       const { error } = await supabase.from("mem").insert({
         id,
-        user_id: JSON.parse(user_id),
+        user_id: user_id,
         img_src: `${
           process.env.REACT_APP_SUPABASE_URL + storageUrl + data.path
         }`,
@@ -92,6 +97,8 @@ export const MemCreator = () => {
 
       if (!error) {
         alert("Zapisano");
+      } else {
+        alert("błąd");
       }
     }
   };
