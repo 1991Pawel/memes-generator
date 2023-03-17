@@ -2,7 +2,8 @@ import s from "./MemCreator.module.css";
 import { useState, useRef } from "react";
 import { Input } from "components/Input/Input";
 import { Button } from "components/Button/Button";
-import { toJpeg } from "html-to-image";
+import { toBlob, toPng } from "html-to-image";
+import { decode } from "base64-arraybuffer";
 
 import supabase from "../../config/supabaseClient";
 export const MemCreator = () => {
@@ -56,14 +57,14 @@ export const MemCreator = () => {
   //   }
   // };
 
-  const convertHtmlToImage = () => {
+  const convertHtmlToImage = (fileName: string) => {
     if (ref.current === null) {
       return;
     }
 
-    return toJpeg(ref.current, { cacheBust: true })
+    return toBlob(ref.current, { cacheBust: true })
       .then((dataUrl: any) => {
-        return dataUrl;
+        return new File([dataUrl], fileName, { type: "image/jpg" });
       })
       .catch((err: any) => {
         console.log(err);
@@ -71,10 +72,11 @@ export const MemCreator = () => {
   };
 
   const handleSaveMem = async () => {
-    const image = await convertHtmlToImage();
-    let storageUrl = "/storage/v1/object/public/mems/";
     let id = +new Date();
-    let fileName = `${id}.png`;
+    let fileName = `${id}.jpg`;
+    let storageUrl = "/storage/v1/object/public/mems/";
+    const image = await convertHtmlToImage(fileName);
+    if (!image) return;
     let getUser = sessionStorage.getItem("user");
     let parseUser = getUser ? JSON.parse(getUser) : null;
     let user_id = parseUser.user?.id;
@@ -82,7 +84,7 @@ export const MemCreator = () => {
     const { data, error } = await supabase.storage
       .from("mems")
       .upload(fileName, image, {
-        contentType: "image/png",
+        contentType: "image/jpg",
       });
 
     if (data && user_id) {
@@ -105,21 +107,20 @@ export const MemCreator = () => {
 
   return (
     <div className={s.creator}>
-      <div ref={ref}>
-        <div className={s.top}>
-          <label htmlFor="text">Tekst mema</label>
-          <input
-            onChange={(e) => setText(e.target.value)}
-            id="name"
-            name="text"
-            type="text"
-          />
-        </div>
-        <div className={s.inner}>
-          <p className={s.text}>{text}</p>
-          <img src={image} alt={text} />
-        </div>
+      <div className={s.top}>
+        <label htmlFor="text">Tekst mema</label>
+        <input
+          onChange={(e) => setText(e.target.value)}
+          id="name"
+          name="text"
+          type="text"
+        />
       </div>
+      <div ref={ref} className={s.inner}>
+        <p className={s.text}>{text}</p>
+        <img src={image} alt={text} />
+      </div>
+
       <Button onClick={handleSaveMem}>Gotowe</Button>
     </div>
   );

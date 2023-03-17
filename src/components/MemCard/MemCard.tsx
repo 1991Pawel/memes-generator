@@ -8,7 +8,8 @@ const fakeData = {
   user_id: 2,
 };
 
-export const MemCard = () => {
+export const MemCard = ({ mem }: any) => {
+  console.log(mem);
   return (
     <div className={s.card}>
       <div className={s.cardTop}>
@@ -17,9 +18,9 @@ export const MemCard = () => {
           <span className={s.name}> {fakeData.name}</span>
         </div>
       </div>
-      <img className={s.image} src={placeholer} alt="need alt" />
+      <img className={s.image} src={mem.img_src} alt="need alt" />
       <div className={s.cardBottom}>
-        <p className={s.desc}>stworzony 2 tygodnie temu</p>
+        <p className={s.desc}>stworzony {mem.created_at}</p>
         <div className={s.icons}>
           <div className={s.icon}>ICON</div>
           <div className={s.icon}>ICON</div>
