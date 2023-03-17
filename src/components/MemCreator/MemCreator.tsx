@@ -2,8 +2,7 @@ import s from "./MemCreator.module.css";
 import { useState, useRef } from "react";
 import { Input } from "components/Input/Input";
 import { Button } from "components/Button/Button";
-import { toBlob, toPng } from "html-to-image";
-import { decode } from "base64-arraybuffer";
+import { toBlob } from "html-to-image";
 
 import supabase from "../../config/supabaseClient";
 export const MemCreator = () => {
@@ -13,96 +12,55 @@ export const MemCreator = () => {
   );
   const ref = useRef(null);
 
-  // const fetchData = async () => {
-  //   const { data, error } = await supabase.from("mem").select();
-  //   if (error) {
-  //     setError("Błąd");
-  //     setMem(null);
-  //   }
-  //   if (data) {
-  //     setMem(data);
-  //     setError(null);
-  //   }
-  // };
-  // const handleSaveImage = async () => {
-  //   let storageUrl = "/storage/v1/object/public/mems/";
-  //   let id = +new Date();
-  //   let fileName = `${id}.png`;
-  //   let user_id = sessionStorage.getItem("user_id");
-
-  //   const imageToSave = canvasRef.current
-  //     .toDataURL("image/jpeg")
-  //     .split(";base64,")[1];
-  //   const { data, error } = await supabase.storage
-  //     .from("mems")
-  //     .upload(fileName, decode(imageToSave), {
-  //       contentType: "image/png",
-  //     });
-
-  //   if (data) {
-  //     const { error } = await supabase.from("mem").insert({
-  //       id,
-  //       user_id: JSON.parse(user_id),
-  //       img_src: `${
-  //         process.env.REACT_APP_SUPABASE_URL + storageUrl + data.path
-  //       }`,
-  //     });
-  //     {
-  //       console.log(sessionStorage.getItem("user_id"));
-  //       console.log(JSON.parse(user_id));
-  //     }
-  //     if (!error) {
-  //       alert("Zapisano");
-  //     }
-  //   }
-  // };
-
   const convertHtmlToImage = (fileName: string) => {
-    if (ref.current === null) {
-      return;
-    }
+    if (ref.current === null) return;
 
     return toBlob(ref.current, { cacheBust: true })
-      .then((dataUrl: any) => {
-        return new File([dataUrl], fileName, { type: "image/jpg" });
+      .then((dataUrl) => {
+        if (dataUrl) {
+          return new File([dataUrl], fileName, { type: "image/jpg" });
+        }
       })
-      .catch((err: any) => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleSaveMem = async () => {
-    let id = +new Date();
-    let fileName = `${id}.jpg`;
-    let storageUrl = "/storage/v1/object/public/mems/";
-    const image = await convertHtmlToImage(fileName);
-    if (!image) return;
-    let getUser = sessionStorage.getItem("user");
-    let parseUser = getUser ? JSON.parse(getUser) : null;
-    let user_id = parseUser.user?.id;
-
+  const saveFileInStorage = async (fileName: string, image: File) => {
     const { data, error } = await supabase.storage
       .from("mems")
       .upload(fileName, image, {
         contentType: "image/jpg",
       });
+    return { data, error };
+  };
 
-    if (data && user_id) {
-      console.log("wejdz", data, user_id);
+  const handleAddMem = async (user_id: string, data: any) => {
+    if (
+      process.env.REACT_APP_SUPABASE_URL &&
+      process.env.REACT_APP_STORAGE_URL
+    ) {
       const { error } = await supabase.from("mem").insert({
-        id,
         user_id: user_id,
         img_src: `${
-          process.env.REACT_APP_SUPABASE_URL + storageUrl + data.path
+          process.env.REACT_APP_SUPABASE_URL +
+          process.env.REACT_APP_STORAGE_URL +
+          data.path
         }`,
       });
-
-      if (!error) {
-        alert("Zapisano");
-      } else {
-        alert("błąd");
-      }
     }
+  };
+
+  const handleSaveMem = async () => {
+    const fileName = `${+new Date()}.jpg`;
+    const image = await convertHtmlToImage(fileName);
+    if (!image) return;
+    const getUser = sessionStorage.getItem("user");
+    const parseUser = getUser ? JSON.parse(getUser) : null;
+    const user_id = parseUser.user?.id;
+
+    const { data, error } = await saveFileInStorage(fileName, image);
+    handleAddMem(user_id, data);
   };
 
   return (

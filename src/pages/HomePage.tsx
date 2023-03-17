@@ -12,6 +12,9 @@ export const HomePage = () => {
     if (data) {
       setMems(data);
     }
+    if (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -24,7 +27,7 @@ export const HomePage = () => {
       <MemCreator />
       <div>
         {mems.map((mem: any) => (
-          <MemCard mem={mem} />
+          <MemCard key={mem.id} mem={mem} />
         ))}
       </div>
     </Layout>
