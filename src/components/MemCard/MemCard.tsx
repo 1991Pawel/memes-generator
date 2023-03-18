@@ -9,7 +9,6 @@ const fakeData = {
 };
 
 export const MemCard = ({ mem }: any) => {
-  console.log(mem);
   return (
     <div className={s.card}>
       <div className={s.cardTop}>
