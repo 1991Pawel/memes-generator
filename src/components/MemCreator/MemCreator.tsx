@@ -10,6 +10,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import image01 from "./img/01.jpg";
 import image02 from "./img/02.jpg";
 import image03 from "./img/03.jpg";
+import html2canvas from "html2canvas";
+import { decode } from "base64-arraybuffer";
 
 interface MemImageType {
   id: string;
@@ -58,21 +60,58 @@ export const MemCreator = () => {
     return () => subscription.unsubscribe();
   }, [watch]);
 
-  const convertHtmlToImage = (fileName: string) => {
+  // const convertHtmlToImage = (fileName: string) => {
+  //   if (ref.current === null) return;
+
+  //   return toBlob(ref.current, { cacheBust: true })
+  //     .then((dataUrl) => {
+  //       if (dataUrl) {
+  //         return new File([dataUrl], fileName, { type: "image/jpg" });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  const convertHtmlToImage = async (fileName: string) => {
     if (ref.current === null) return;
 
-    return toBlob(ref.current, { cacheBust: true })
-      .then((dataUrl) => {
-        if (dataUrl) {
-          return new File([dataUrl], fileName, { type: "image/jpg" });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const canvas = await html2canvas(ref.current);
+    const imageToSave = canvas.toDataURL("image/jpeg").split(";base64,")[1];
+    return decode(imageToSave);
+
+    // const base64 = await fetch(base64Data);
+    // const base64Response = await fetch(`data:image/jpeg;base64,${base64Data}`);
+
+    // const blob = await base64Response.blob();
+    // console.log(base64);
+    // return new File([blob], fileName, { type: "image/jpg" });
+    // const url = canvas.toDataURL("image/jpeg", 0.5);
+
+    // console.log(test, "test");
+
+    // return new File([url], fileName, { type: "image/jpg" });
+    // const image = canvas.toDataURL();
+
+    // return image;
+
+    // return new File([image], fileName, { type: "image/jpg" });
+    // console.log(image);
+    // download the image
+
+    // return toBlob(ref.current, { cacheBust: true })
+    //   .then((dataUrl) => {
+    //     if (dataUrl) {
+    //       return new File([dataUrl], fileName, { type: "image/jpg" });
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
-  const saveFileInStorage = async (fileName: string, image: File) => {
+  const saveFileInStorage = async (fileName: string, image: any) => {
     const { data, error } = await supabase.storage
       .from("mems")
       .upload(fileName, image, {
@@ -103,6 +142,7 @@ export const MemCreator = () => {
   const handleSaveMem = async () => {
     const fileName = `${+new Date()}.jpg`;
     const image = await convertHtmlToImage(fileName);
+    // console.log(image, "MMEMEME");
     if (!image) return;
     const getUser = sessionStorage.getItem("user");
     const parseUser = getUser ? JSON.parse(getUser) : null;
@@ -110,6 +150,7 @@ export const MemCreator = () => {
 
     const { data, error } = await saveFileInStorage(fileName, image);
     if (data && data.path) {
+      alert("zapisano");
       handleAddMem(user_id, data.path);
     }
     if (error) {
