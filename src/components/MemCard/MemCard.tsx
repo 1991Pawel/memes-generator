@@ -1,12 +1,10 @@
 import s from "./MemCard.module.css";
 import placeholer from "./img/placeholder.png";
-
-const fakeData = {
-  name: "Nazwa użytkownika",
-  bgUrl: placeholer,
-  id: 1,
-  user_id: 2,
-};
+import dayjs from "dayjs";
+import "dayjs/locale/pl"; // import locale
+import realtiveTime from "dayjs/plugin/relativeTime";
+dayjs.locale("pl");
+dayjs.extend(realtiveTime);
 
 export const MemCard = ({ mem }: any) => {
   return (
@@ -14,12 +12,13 @@ export const MemCard = ({ mem }: any) => {
       <div className={s.cardTop}>
         <div className={s.avatar}>
           <div className={s.avatarImg}></div>
-          <span className={s.name}> {fakeData.name}</span>
+          <span className={s.name}> {"placeholder name"}</span>
         </div>
       </div>
+
       <img className={s.image} src={mem.img_src} alt="need alt" />
       <div className={s.cardBottom}>
-        <p className={s.desc}>stworzony {mem.created_at}</p>
+        <p className={s.desc}>stworzony {dayjs().to(dayjs(mem.created_at))}</p>
         <div className={s.icons}>
           <div className={s.icon}>ICON</div>
           <div className={s.icon}>ICON</div>

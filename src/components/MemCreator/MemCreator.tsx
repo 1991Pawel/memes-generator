@@ -22,7 +22,7 @@ export const MemCreator = () => {
     "http://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Neighbours_Siamese.jpg/640px-Neighbours_Siamese.jpg"
   );
   const {
-    getValues,
+    watch,
     register,
     handleSubmit,
     formState: { errors },
@@ -30,6 +30,12 @@ export const MemCreator = () => {
     resolver: yupResolver(schema),
   });
   const ref = useRef(null);
+  const [textTop, textBottom] = watch(["top", "bottom"]);
+
+  useEffect(() => {
+    const subscription = watch((value) => console.log(value));
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const convertHtmlToImage = (fileName: string) => {
     if (ref.current === null) return;
@@ -54,7 +60,7 @@ export const MemCreator = () => {
     return { data, error };
   };
 
-  const handleAddMem = async (user_id: string, data: any) => {
+  const handleAddMem = async (user_id: string, path: string) => {
     if (
       process.env.REACT_APP_SUPABASE_URL &&
       process.env.REACT_APP_STORAGE_URL
@@ -64,9 +70,12 @@ export const MemCreator = () => {
         img_src: `${
           process.env.REACT_APP_SUPABASE_URL +
           process.env.REACT_APP_STORAGE_URL +
-          data.path
+          path
         }`,
       });
+      if (error) {
+        alert("błąd");
+      }
     }
   };
 
@@ -79,8 +88,8 @@ export const MemCreator = () => {
     const user_id = parseUser.user?.id;
 
     const { data, error } = await saveFileInStorage(fileName, image);
-    if (data) {
-      handleAddMem(user_id, data);
+    if (data && data.path) {
+      handleAddMem(user_id, data.path);
     }
     if (error) {
       alert("ERROR");
@@ -108,9 +117,9 @@ export const MemCreator = () => {
           />
         </div>
         <div ref={ref} className={s.inner}>
-          <p className={s.textTop}>{"przykładowy tekst góra"}</p>
+          <p className={s.textTop}>{textTop}</p>
           <img src={image} alt={""} />
-          <p className={s.textBottom}>{"przykładowy teskt dół"}</p>
+          <p className={s.textBottom}>{textBottom}</p>
         </div>
 
         <Button onClick={handleSubmit(handleSaveMem)}>Wyślij</Button>
