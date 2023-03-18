@@ -7,7 +7,6 @@ export const HomePage = () => {
   return (
     <Layout>
       HOMEPAGE
-      <MemCreator />
       <Mems />
     </Layout>
   );

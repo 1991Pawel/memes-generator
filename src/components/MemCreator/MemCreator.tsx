@@ -148,14 +148,14 @@ export const MemCreator = () => {
             type="button"
             className={s.imageButton}
           >
-            <img className={s.image} src={img.bg} alt={textTop + textBottom} />
+            <img className={s.image} src={img.bg} alt="" />
           </button>
         ))}
       </div>
 
       <div ref={ref} className={s.inner}>
         <p className={s.textTop}>{textTop}</p>
-        <img className={s.memImage} src={selectedImage.bg} alt="&nbsp;" />
+        <img className={s.memImage} src={selectedImage.bg} alt="" />
         <p className={s.textBottom}>{textBottom}</p>
       </div>
 
