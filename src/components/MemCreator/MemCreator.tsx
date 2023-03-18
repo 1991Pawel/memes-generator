@@ -1,15 +1,34 @@
 import s from "./MemCreator.module.css";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Input } from "components/Input/Input";
 import { Button } from "components/Button/Button";
 import { toBlob } from "html-to-image";
-
+import { useForm } from "react-hook-form";
 import supabase from "../../config/supabaseClient";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup
+  .object({
+    top: yup.string().required("Wpisz treść"),
+    bottom: yup.string().required("Wpisz treść"),
+  })
+  .required();
+
+type FormValues = yup.InferType<typeof schema>;
+
 export const MemCreator = () => {
-  const [text, setText] = useState("");
   const [image, setImage] = useState(
     "http://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Neighbours_Siamese.jpg/640px-Neighbours_Siamese.jpg"
   );
+  const {
+    getValues,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+  });
   const ref = useRef(null);
 
   const convertHtmlToImage = (fileName: string) => {
@@ -60,26 +79,42 @@ export const MemCreator = () => {
     const user_id = parseUser.user?.id;
 
     const { data, error } = await saveFileInStorage(fileName, image);
-    handleAddMem(user_id, data);
+    if (data) {
+      handleAddMem(user_id, data);
+    }
+    if (error) {
+      alert("ERROR");
+    }
   };
 
   return (
     <div className={s.creator}>
-      <div className={s.top}>
-        <label htmlFor="text">Tekst mema</label>
-        <input
-          onChange={(e) => setText(e.target.value)}
-          id="name"
-          name="text"
-          type="text"
-        />
-      </div>
-      <div ref={ref} className={s.inner}>
-        <p className={s.text}>{text}</p>
-        <img src={image} alt={text} />
-      </div>
+      <form>
+        <div className={s.top}>
+          <Input
+            placeholder="Wpisz górną treść"
+            label="Górna Treść"
+            name="top"
+            register={register}
+            errors={errors}
+          />
 
-      <Button onClick={handleSaveMem}>Gotowe</Button>
+          <Input
+            placeholder="Wpisz dolną treść"
+            label="Dolna Treść"
+            name="bottom"
+            register={register}
+            errors={errors}
+          />
+        </div>
+        <div ref={ref} className={s.inner}>
+          <p className={s.textTop}>{"przykładowy tekst góra"}</p>
+          <img src={image} alt={""} />
+          <p className={s.textBottom}>{"przykładowy teskt dół"}</p>
+        </div>
+
+        <Button onClick={handleSubmit(handleSaveMem)}>Wyślij</Button>
+      </form>
     </div>
   );
 };

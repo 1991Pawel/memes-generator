@@ -10,9 +10,22 @@ img {
   margin: 10px 0;
 }
 
-.text {
+.textTop {
   position: absolute;
   top: 10px;
+  width: 100%;
+  padding: 2%;
+  font-size: 30px;
+  line-height: 30px;
+  color: #fff;
+  text-shadow: 2px 2px 2px #000000;
+  text-align: center;
+  font-weight: 900;
+}
+
+.textBottom {
+  position: absolute;
+  bottom: 10px;
   width: 100%;
   padding: 2%;
   font-size: 30px;
