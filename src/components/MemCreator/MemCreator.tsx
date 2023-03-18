@@ -7,6 +7,29 @@ import { useForm } from "react-hook-form";
 import supabase from "../../config/supabaseClient";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import image01 from "./img/01.jpg";
+import image02 from "./img/02.jpg";
+import image03 from "./img/03.jpg";
+
+interface MemImageType {
+  id: string;
+  bg: string;
+}
+
+const memImages = [
+  {
+    id: 1,
+    bg: image01,
+  },
+  {
+    id: 2,
+    bg: image02,
+  },
+  {
+    id: 3,
+    bg: image03,
+  },
+];
 
 const schema = yup
   .object({
@@ -18,9 +41,7 @@ const schema = yup
 type FormValues = yup.InferType<typeof schema>;
 
 export const MemCreator = () => {
-  const [image, setImage] = useState(
-    "http://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Neighbours_Siamese.jpg/640px-Neighbours_Siamese.jpg"
-  );
+  const [selectedImage, setSelectedImage] = useState(memImages[0]);
   const {
     watch,
     register,
@@ -96,34 +117,48 @@ export const MemCreator = () => {
     }
   };
 
+  const handleChangeImage = (img: any) => {
+    setSelectedImage(img);
+  };
+
   return (
-    <div className={s.creator}>
-      <form>
-        <div className={s.top}>
-          <Input
-            placeholder="Wpisz górną treść"
-            label="Górna Treść"
-            name="top"
-            register={register}
-            errors={errors}
-          />
+    <form className={s.form}>
+      <div className={s.top}>
+        <Input
+          placeholder="Wpisz górną treść"
+          label="Górna Treść"
+          name="top"
+          register={register}
+          errors={errors}
+        />
 
-          <Input
-            placeholder="Wpisz dolną treść"
-            label="Dolna Treść"
-            name="bottom"
-            register={register}
-            errors={errors}
-          />
-        </div>
-        <div ref={ref} className={s.inner}>
-          <p className={s.textTop}>{textTop}</p>
-          <img src={image} alt={""} />
-          <p className={s.textBottom}>{textBottom}</p>
-        </div>
+        <Input
+          placeholder="Wpisz dolną treść"
+          label="Dolna Treść"
+          name="bottom"
+          register={register}
+          errors={errors}
+        />
+      </div>
+      <div className={s.selectImage}>
+        {memImages.map((img) => (
+          <button
+            onClick={() => handleChangeImage(img)}
+            type="button"
+            className={s.imageButton}
+          >
+            <img className={s.image} src={img.bg} alt={textTop + textBottom} />
+          </button>
+        ))}
+      </div>
 
-        <Button onClick={handleSubmit(handleSaveMem)}>Wyślij</Button>
-      </form>
-    </div>
+      <div ref={ref} className={s.inner}>
+        <p className={s.textTop}>{textTop}</p>
+        <img src={selectedImage.bg} alt="&nbsp;" />
+        <p className={s.textBottom}>{textBottom}</p>
+      </div>
+
+      <Button onClick={handleSubmit(handleSaveMem)}>Wyślij</Button>
+    </form>
   );
 };
