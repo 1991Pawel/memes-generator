@@ -141,8 +141,9 @@ export const MemCreator = () => {
         />
       </div>
       <div className={s.selectImage}>
-        {memImages.map((img) => (
+        {memImages.map((img, id) => (
           <button
+            key={id}
             onClick={() => handleChangeImage(img)}
             type="button"
             className={s.imageButton}
