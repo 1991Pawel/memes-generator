@@ -154,7 +154,7 @@ export const MemCreator = () => {
 
       <div ref={ref} className={s.inner}>
         <p className={s.textTop}>{textTop}</p>
-        <img src={selectedImage.bg} alt="&nbsp;" />
+        <img className={s.memImage} src={selectedImage.bg} alt="&nbsp;" />
         <p className={s.textBottom}>{textBottom}</p>
       </div>
 
