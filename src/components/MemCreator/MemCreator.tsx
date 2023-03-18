@@ -36,7 +36,7 @@ const memImages = [
 const schema = yup
   .object({
     top: yup.string().required("Wpisz treść"),
-    bottom: yup.string().required("Wpisz treść"),
+    bottom: yup.string().required("Wpisz treść "),
   })
   .required();
 
