@@ -9,7 +9,7 @@
 .textTop {
   position: absolute;
   font-family: "arial";
-  top: 20px;
+  top: 10%;
   width: 100%;
   padding: 0 10%;
   font-size: 30px;
@@ -18,13 +18,12 @@
   text-shadow: 2px 2px 2px #000000;
   text-align: center;
   font-weight: 900;
-  border: 5px solid red;
 }
 
 .textBottom {
   font-family: "arial";
   position: absolute;
-  bottom: 30px;
+  bottom: 10%;
   width: 100%;
   padding: 0 10%;
   font-size: 30px;
@@ -33,7 +32,6 @@
   text-shadow: 2px 2px 2px #000000;
   text-align: center;
   font-weight: 900;
-  border: 5px solid red;
 }
 .selectImage {
   display: flex;
@@ -56,7 +54,9 @@
 }
 
 .memImage {
-  aspect-ratio: 1/1;
+  height: 100%;
+  width: 100%;
+  /* aspect-ratio: 1/1; */
   display: block;
 }
 

@@ -67,7 +67,7 @@ export const MemCreator = () => {
           if (blob) {
             res(blob);
           } else {
-            alert("error");
+            rej(alert("błąd"));
           }
         });
       });
