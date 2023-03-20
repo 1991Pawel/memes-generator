@@ -53,11 +53,6 @@ export const MemCreator = () => {
   const ref = useRef(null);
   const [textTop, textBottom] = watch(["top", "bottom"]);
 
-  useEffect(() => {
-    const subscription = watch((value) => console.log(value));
-    return () => subscription.unsubscribe();
-  }, [watch]);
-
   const convertHtmlToImage = async () => {
     if (ref.current === null) return;
     const canvas = await html2canvas(ref.current);
