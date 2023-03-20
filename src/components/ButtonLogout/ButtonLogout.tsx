@@ -10,6 +10,7 @@ export const ButtonLogout = ({ children }: ButtonLogoutProps) => {
   const navigate = useNavigate();
   let tempLogoutFn = () => {
     localStorage.clear();
+    sessionStorage.clear();
     navigate("/", { replace: true });
   };
   return (

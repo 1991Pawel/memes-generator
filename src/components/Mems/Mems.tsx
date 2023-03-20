@@ -12,16 +12,24 @@ interface MemType {
 
 export const Mems = () => {
   const [mems, setMems] = useState<MemType[] | any>([]);
+  const getFileNameFromSrc = (fileName: string) =>
+    fileName.substring(fileName.lastIndexOf("/") + 1);
 
   const fetchMems = async () => {
     const { data, error } = await supabase.from("mem").select();
     if (data) {
       setMems(data);
-      console.log(data, "data");
     }
     if (error) {
       console.log(error);
     }
+  };
+
+  const handleRemoveMem = async (id: string, img_src: string) => {
+    await supabase.from("mem").delete().match({ id });
+    const { data, error } = await supabase.storage
+      .from("mems")
+      .remove([getFileNameFromSrc(img_src)]);
   };
 
   useEffect(() => {
@@ -31,7 +39,7 @@ export const Mems = () => {
   return (
     <div className={s.wrapper}>
       {mems.map((mem: MemType) => (
-        <MemCard key={mem.id} mem={mem} />
+        <MemCard handleRemoveMem={handleRemoveMem} key={mem.id} mem={mem} />
       ))}
     </div>
   );

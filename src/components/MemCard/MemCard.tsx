@@ -6,7 +6,12 @@ import realtiveTime from "dayjs/plugin/relativeTime";
 dayjs.locale("pl");
 dayjs.extend(realtiveTime);
 
-export const MemCard = ({ mem }: any) => {
+export const MemCard = ({ mem, handleRemoveMem }: any) => {
+  const user = sessionStorage.getItem("user");
+  const parsedUser = user ? JSON.parse(user) : null;
+  const myId = parsedUser?.user.id;
+  // const itsMyPost = myId === mem.user_id;
+  const itsMyPost = true;
   return (
     <div className={s.card}>
       <div className={s.cardTop}>
@@ -22,7 +27,14 @@ export const MemCard = ({ mem }: any) => {
         <div className={s.icons}>
           <div className={s.icon}>ICON</div>
           <div className={s.icon}>ICON</div>
-          <div className={s.icon}>ICON</div>
+          {itsMyPost && (
+            <div
+              onClick={() => handleRemoveMem(mem.id, mem.img_src)}
+              className={s.icon}
+            >
+              Delete
+            </div>
+          )}
         </div>
       </div>
     </div>
