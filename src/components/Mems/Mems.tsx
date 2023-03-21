@@ -25,6 +25,10 @@ export const Mems = () => {
     }
   };
 
+  const removeMemFromUi = (id: string) => {
+    setMems((prevState: MemType[]) => prevState.filter((mem) => mem.id !== id));
+  };
+
   const removeFromTables = async (id: string) => {
     return await supabase.from("mem").delete().match({ id });
   };
@@ -41,6 +45,7 @@ export const Mems = () => {
           removeFormTables.error === null &&
           removeFormStorage.error === null
         ) {
+          removeMemFromUi(id);
           alert("wywalone");
         } else {
           alert("błąd usuwania");
