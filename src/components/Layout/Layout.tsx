@@ -9,18 +9,19 @@ interface LayoutProps {
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const user = sessionStorage.getItem("user");
+  let user = sessionStorage.getItem("user");
+  let parsedUser = user ? JSON.parse(user) : null;
   const navigate = useNavigate();
 
   //if user with token
   useEffect(() => {
-    if (user) {
+    if (parsedUser?.session?.access_token) {
       navigate("/dashboard");
     }
   }, [user]);
 
   // to avoid flick
-  if (user) {
+  if (parsedUser?.session?.access_token) {
     return null;
   }
   return (
