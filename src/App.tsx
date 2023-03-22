@@ -1,4 +1,5 @@
 import { ModalContextProvider } from "components/Modal/ModalContext";
+import { MemContextProvider } from "context/MemsContext";
 import { PrivateRoutes } from "components/PrivateRoutes/PrivateRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
@@ -7,17 +8,19 @@ import { ErrorModal } from "components/ErrorModal/ErrorModal";
 function App() {
   return (
     <ModalContextProvider>
-      <div className="App">
-        <Router>
-          <Routes>
-            <Route element={<HomePage />} path="/" />
-            <Route element={<PrivateRoutes />}>
-              <Route element={<Dashboard />} path="/dashboard"></Route>
-            </Route>
-          </Routes>
-        </Router>
-        <ErrorModal />
-      </div>
+      <MemContextProvider>
+        <div className="App">
+          <Router>
+            <Routes>
+              <Route element={<HomePage />} path="/" />
+              <Route element={<PrivateRoutes />}>
+                <Route element={<Dashboard />} path="/dashboard"></Route>
+              </Route>
+            </Routes>
+          </Router>
+          <ErrorModal />
+        </div>
+      </MemContextProvider>
     </ModalContextProvider>
   );
 }

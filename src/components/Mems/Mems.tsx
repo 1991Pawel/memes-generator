@@ -1,5 +1,5 @@
 import supabase from "config/supabaseClient";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MemCard } from "components/MemCard/MemCard";
 import s from "./Mems.module.css";
 
@@ -14,16 +14,6 @@ export const Mems = () => {
   const [mems, setMems] = useState<MemType[] | any>([]);
   const getFileNameFromSrc = (fileName: string) =>
     fileName.substring(fileName.lastIndexOf("/") + 1);
-
-  const fetchMems = async () => {
-    const { data, error } = await supabase.from("mem").select();
-    if (data) {
-      setMems(data);
-    }
-    if (error) {
-      console.log(error);
-    }
-  };
 
   const removeMemFromUi = (id: string) => {
     setMems((prevState: MemType[]) => prevState.filter((mem) => mem.id !== id));
@@ -53,10 +43,6 @@ export const Mems = () => {
       }
     );
   };
-
-  useEffect(() => {
-    fetchMems();
-  }, []);
 
   return (
     <div className={s.wrapper}>
