@@ -1,10 +1,10 @@
-import { ModalContextProvider } from "components/Modal/ModalContext";
+import { ModalContextProvider } from "context/ModalContext";
 import { MemContextProvider } from "context/MemsContext";
 import { PrivateRoutes } from "components/PrivateRoutes/PrivateRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { Dashboard } from "pages/Dashboard";
-import { ErrorModal } from "components/ErrorModal/ErrorModal";
+import { ErrorModal } from "components/molecules/ErrorModal/ErrorModal";
 function App() {
   return (
     <ModalContextProvider>

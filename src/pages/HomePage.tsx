@@ -1,7 +1,7 @@
-import { Layout } from "components/Layout/Layout";
+import { Layout } from "components/templates/Layout/Layout";
 
-import { MemCreator } from "components/MemCreator/MemCreator";
-import { Mems } from "components/Mems/Mems";
+import { MemCreator } from "components/orgnisms/MemCreator/MemCreator";
+import { Mems } from "components/orgnisms/Mems/Mems";
 
 export const HomePage = () => {
   return (
