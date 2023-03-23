@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
 import { useContext } from "react";
 import supabase from "config/supabaseClient";
+import { fetchMems } from "services";
 
 interface MemContextProps {
   children: ReactNode;
@@ -16,18 +17,17 @@ export const MemContext = createContext<ModalState | null>(null);
 export const MemContextProvider = ({ children }: MemContextProps) => {
   const [mems, setMems] = useState<any>([]);
 
-  const fetchMems = async () => {
-    const { data, error } = await supabase.from("mem").select();
-    if (data) {
-      setMems(data);
-    }
-    if (error) {
-      console.log(error);
-    }
-  };
+
+  const onSuccess = (data:any) => {
+    setMems(data)
+  }
+  const onFailure = (error:any) => {
+    console.log(error)
+  }
+
 
   useEffect(() => {
-    fetchMems();
+    fetchMems(onSuccess,onFailure);
   }, []);
 
   return <MemContext.Provider value={{mems,setMems} }>{children}</MemContext.Provider>;
