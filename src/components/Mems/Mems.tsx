@@ -1,5 +1,6 @@
 import supabase from "config/supabaseClient";
-import { useState } from "react";
+import { useContext } from "react";
+import { useMemContext } from "context/MemsContext";
 import { MemCard } from "components/MemCard/MemCard";
 import s from "./Mems.module.css";
 
@@ -11,7 +12,7 @@ interface MemType {
 }
 
 export const Mems = () => {
-  const [mems, setMems] = useState<MemType[] | any>([]);
+  const {mems,setMems} = useMemContext();
   const getFileNameFromSrc = (fileName: string) =>
     fileName.substring(fileName.lastIndexOf("/") + 1);
 

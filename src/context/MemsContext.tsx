@@ -8,6 +8,7 @@ interface MemContextProps {
 
 interface ModalState {
   mems: any;
+  setMems:any;
 }
 
 export const MemContext = createContext<ModalState | null>(null);
@@ -29,7 +30,7 @@ export const MemContextProvider = ({ children }: MemContextProps) => {
     fetchMems();
   }, []);
 
-  return <MemContext.Provider value={{ mems }}>{children}</MemContext.Provider>;
+  return <MemContext.Provider value={{mems,setMems} }>{children}</MemContext.Provider>;
 };
 
 export const useMemContext = () => {
