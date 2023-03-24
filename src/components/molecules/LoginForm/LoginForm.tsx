@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../atoms/Button/Button";
 import { Input } from "../../atoms/Input/Input";
 import s from "./LoginForm.module.css";
-import { loginUser } from "./index";
+import { loginUser } from "../../../services";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useModalContext } from "context/ModalContext";

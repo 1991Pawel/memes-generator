@@ -6,7 +6,6 @@ import {
   SetStateAction,
 } from "react";
 import { useContext } from "react";
-import supabase from "config/supabaseClient";
 import { fetchMems } from "services";
 
 export interface MemType {
@@ -24,7 +23,6 @@ export const MemContext = createContext<ModalState | null>(null);
 
 export const MemContextProvider = ({ children }: { children: ReactNode }) => {
   const [mems, setMems] = useState<MemType[]>([]);
-  const myAbortController = new AbortController();
 
   const onSuccess = (data: MemType[]) => {
     setMems(data);
@@ -35,8 +33,6 @@ export const MemContextProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     fetchMems(onSuccess, onFailure);
-
-    return () => myAbortController.abort();
   }, []);
 
   return (

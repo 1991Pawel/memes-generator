@@ -4,7 +4,7 @@ import { Button } from "../../atoms/Button/Button";
 import { Input } from "../../atoms/Input/Input";
 import { PasswordStrengthBar } from "../../atoms/PasswordStrengthBar/PasswordStrengthBar";
 import s from "./RegisterForm.module.css";
-import { registerUser } from "./index";
+import { registerUser } from "../../../services";
 import { useModalContext } from "context/ModalContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Session, User, AuthError } from "@supabase/gotrue-js";

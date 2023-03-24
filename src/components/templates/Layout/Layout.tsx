@@ -15,10 +15,10 @@ export const Layout = ({ children }: LayoutProps) => {
 
   //if user with token
   useEffect(() => {
-    if (user?.session?.access_token) {
+    if (user?.session) {
       navigate("/dashboard");
     }
-  }, [user]);
+  }, [user, navigate]);
 
   // to avoid flick
   if (user?.session?.access_token) {
