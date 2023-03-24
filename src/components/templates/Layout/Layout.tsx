@@ -4,24 +4,24 @@ import { Footer } from "components/orgnisms/Footer/Footer";
 import { LoginFormModal } from "components/orgnisms/LoginFormModal/LoginFormModal";
 import { RegisterModalForm } from "components/orgnisms/RegisterFormModal/RegisterFormModal";
 import { useNavigate } from "react-router-dom";
+import { getUserFromSession } from "utils";
 interface LayoutProps {
   children: ReactNode;
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  let user = sessionStorage.getItem("user");
-  let parsedUser = user ? JSON.parse(user) : null;
+  const user = getUserFromSession();
   const navigate = useNavigate();
 
   //if user with token
   useEffect(() => {
-    if (parsedUser?.session?.access_token) {
+    if (user?.session?.access_token) {
       navigate("/dashboard");
     }
   }, [user]);
 
   // to avoid flick
-  if (parsedUser?.session?.access_token) {
+  if (user?.session?.access_token) {
     return null;
   }
   return (

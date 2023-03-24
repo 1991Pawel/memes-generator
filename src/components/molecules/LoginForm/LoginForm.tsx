@@ -8,15 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useModalContext } from "context/ModalContext";
 import { Session, User, AuthError } from "@supabase/gotrue-js";
+import { saveUserToSession } from "utils";
 
 interface UserData {
   user: User | null;
   session: Session | null;
 }
-
-const saveUserToSession = (data: UserData) => {
-  sessionStorage.setItem("user", JSON.stringify(data));
-};
 
 const schema = yup
   .object({
