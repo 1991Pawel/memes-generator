@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useMemContext } from "context/MemsContext";
 import { MemCard } from "components/molecules/MemCard/MemCard";
 import s from "./Mems.module.css";
-
+import {removeMem} from '../../../services/index'
 interface MemType {
   created_at: string;
   id: string;
@@ -20,35 +20,47 @@ export const Mems = () => {
     setMems((prevState: MemType[]) => prevState.filter((mem) => mem.id !== id));
   };
 
-  const removeFromTables = async (id: string) => {
-    return await supabase.from("mem").delete().match({ id });
-  };
-  const removeFromStorage = async (img_src: string) => {
-    return await supabase.storage
-      .from("mems")
-      .remove([getFileNameFromSrc(img_src)]);
-  };
+  const onSuccess = () => {
+    console.log('done')
+  }
+  const onFailure = () => {
+    console.log('fail')
+  }
 
-  const handleRemoveMem = async (id: string, img_src: string) => {
-    Promise.all([removeFromTables(id), removeFromStorage(img_src)]).then(
-      ([removeFormTables, removeFormStorage]) => {
-        if (
-          removeFormTables.error === null &&
-          removeFormStorage.error === null
-        ) {
-          removeMemFromUi(id);
-          alert("wywalone");
-        } else {
-          alert("błąd usuwania");
-        }
-      }
-    );
-  };
+
+  const handleRemoveMem = (mem:any) => {
+    removeMem(onSuccess,onFailure,mem);
+  }
+
+  // const removeFromTables = async (id: string) => {
+  //   return await supabase.from("mem").delete().match({ id });
+  // };
+  // const removeFromStorage = async (img_src: string) => {
+  //   return await supabase.storage
+  //     .from("mems")
+  //     .remove([getFileNameFromSrc(img_src)]);
+  // };
+
+  // const handleRemoveMem = async (id: string, img_src: string) => {
+  //   Promise.all([removeFromTables(id), removeFromStorage(img_src)]).then(
+  //     ([removeFormTables, removeFormStorage]) => {
+  //       if (
+  //         removeFormTables.error === null &&
+  //         removeFormStorage.error === null
+  //       ) {
+  //         removeMemFromUi(id);
+  //         alert("wywalone");
+  //       } else {
+  //         alert("błąd usuwania");
+  //       }
+  //     }
+  //   );
+  // };
 
   return (
     <div className={s.wrapper}>
       {mems.map((mem: MemType) => (
-        <MemCard handleRemoveMem={handleRemoveMem} key={mem.id} mem={mem} />
+        <MemCard handleRemoveMem={() => handleRemoveMem(mem)} key={mem.id} mem={mem} />
       ))}
     </div>
   );
