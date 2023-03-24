@@ -1,15 +1,14 @@
 import s from "./MemCard.module.css";
-import placeholer from "./img/placeholder.png";
 import dayjs from "dayjs";
 import "dayjs/locale/pl"; // import locale
 import realtiveTime from "dayjs/plugin/relativeTime";
+import { getUserFromSession } from "../../../utils/index";
 dayjs.locale("pl");
 dayjs.extend(realtiveTime);
 
 export const MemCard = ({ mem, handleRemoveMem }: any) => {
-  const user = sessionStorage.getItem("user");
-  const parsedUser = user ? JSON.parse(user) : null;
-  const myId = parsedUser?.user.id;
+  const user = getUserFromSession();
+  const myId = user?.user.id;
   const itsMyPost = myId === mem.user_id;
 
   return (
