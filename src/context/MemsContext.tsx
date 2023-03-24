@@ -1,36 +1,46 @@
-import { createContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  SetStateAction,
+} from "react";
 import { useContext } from "react";
 import supabase from "config/supabaseClient";
 import { fetchMems } from "services";
 
-interface MemContextProps {
-  children: ReactNode;
+export interface MemType {
+  created_at: string;
+  id: string;
+  img_src: string;
+  user_id: string;
 }
-
 interface ModalState {
-  mems: any;
-  setMems:any;
+  mems: MemType[];
+  setMems: React.Dispatch<SetStateAction<MemType[]>>;
 }
 
 export const MemContext = createContext<ModalState | null>(null);
 
-export const MemContextProvider = ({ children }: MemContextProps) => {
-  const [mems, setMems] = useState<any>([]);
+export const MemContextProvider = ({ children }: { children: ReactNode }) => {
+  const [mems, setMems] = useState<MemType[]>([]);
 
-
-  const onSuccess = (data:any) => {
-    setMems(data)
-  }
-  const onFailure = (error:any) => {
-    console.log(error)
-  }
-
+  const onSuccess = (data: MemType[]) => {
+    setMems(data);
+  };
+  const onFailure = (error: string) => {
+    console.log(error);
+  };
 
   useEffect(() => {
-    fetchMems(onSuccess,onFailure);
+    fetchMems(onSuccess, onFailure);
   }, []);
 
-  return <MemContext.Provider value={{mems,setMems} }>{children}</MemContext.Provider>;
+  return (
+    <MemContext.Provider value={{ mems, setMems }}>
+      {children}
+    </MemContext.Provider>
+  );
 };
 
 export const useMemContext = () => {

@@ -12,7 +12,7 @@ import image03 from "./img/03.jpg";
 import html2canvas from "html2canvas";
 
 interface MemImageType {
-  id: string;
+  id: number;
   bg: string;
 }
 
@@ -99,13 +99,13 @@ export const MemCreator = () => {
 
   const handleSaveMem = async () => {
     const fileName = `${+new Date()}.jpg`;
-    const image = await convertHtmlToImage();
-    if (!image) return;
+    const blob = await convertHtmlToImage();
+    if (!blob) return;
     const getUser = sessionStorage.getItem("user");
     const parseUser = getUser ? JSON.parse(getUser) : null;
     const user_id = parseUser.user?.id;
 
-    const { data, error } = await saveFileInStorage(fileName, image);
+    const { data, error } = await saveFileInStorage(fileName, blob);
     if (data && data.path) {
       alert("zapisano");
       handleAddMem(user_id, data.path);
@@ -115,7 +115,7 @@ export const MemCreator = () => {
     }
   };
 
-  const handleChangeImage = (img: any) => {
+  const handleChangeImage = (img: MemImageType) => {
     setSelectedImage(img);
   };
 
