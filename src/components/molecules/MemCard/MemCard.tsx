@@ -10,8 +10,8 @@ export const MemCard = ({ mem, handleRemoveMem }: any) => {
   const user = sessionStorage.getItem("user");
   const parsedUser = user ? JSON.parse(user) : null;
   const myId = parsedUser?.user.id;
-  // const itsMyPost = myId === mem.user_id;
-  const itsMyPost = true;
+  const itsMyPost = myId === mem.user_id;
+
   return (
     <div className={s.card}>
       <div className={s.cardTop}>
