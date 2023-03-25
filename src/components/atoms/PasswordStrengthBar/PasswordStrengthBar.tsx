@@ -6,9 +6,9 @@ interface PasswordStrengthBarProps {
 }
 
 const passwordType = {
-  weak: { message: "Słabe", color: "red", colorBar: 1 },
-  medium: { message: "Średnie", color: "#FFC72C", colorBar: 3 },
-  strong: { message: "Śilne", color: "#00AB66", colorBar: 4 },
+  weak: { message: "Słabe", color: "red", barNumber: 1 },
+  medium: { message: "Średnie", color: "#FFC72C", barNumber: 3 },
+  strong: { message: "Śilne", color: "#00AB66", barNumber: 4 },
 };
 
 export const PasswordStrengthBar = ({
@@ -47,7 +47,7 @@ export const PasswordStrengthBar = ({
             className={s.bar}
             style={{
               background:
-                activeStrength.colorBar > i ? activeStrength.color : "",
+                activeStrength.barNumber > i ? activeStrength.color : "",
             }}
             key={i}
           ></span>
