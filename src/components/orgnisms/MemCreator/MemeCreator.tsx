@@ -1,5 +1,5 @@
-import s from "./MemCreator.module.css";
-import { useState, useRef, useEffect } from "react";
+import s from "./MemeCreator.module.css";
+import { useState, useRef } from "react";
 import { Input } from "components/atoms/Input/Input";
 import { Button } from "components/atoms/Button/Button";
 import { useForm } from "react-hook-form";
@@ -11,12 +11,12 @@ import image02 from "./img/02.jpg";
 import image03 from "./img/03.jpg";
 import html2canvas from "html2canvas";
 
-interface MemImageType {
+interface MemeImageType {
   id: number;
   bg: string;
 }
 
-const memImages = [
+const memesImages = [
   {
     id: 1,
     bg: image01,
@@ -40,8 +40,8 @@ const schema = yup
 
 type FormValues = yup.InferType<typeof schema>;
 
-export const MemCreator = () => {
-  const [selectedImage, setSelectedImage] = useState(memImages[0]);
+export const MemeCreator = () => {
+  const [selectedImage, setSelectedImage] = useState(memesImages[0]);
   const {
     watch,
     register,
@@ -71,19 +71,19 @@ export const MemCreator = () => {
 
   const saveFileInStorage = async (fileName: string, image: any) => {
     const { data, error } = await supabase.storage
-      .from("mems")
+      .from("memes")
       .upload(fileName, image, {
         contentType: "image/jpg",
       });
     return { data, error };
   };
 
-  const handleAddMem = async (user_id: string, path: string) => {
+  const handleAddMeme = async (user_id: string, path: string) => {
     if (
       process.env.REACT_APP_SUPABASE_URL &&
       process.env.REACT_APP_STORAGE_URL
     ) {
-      const { error } = await supabase.from("mem").insert({
+      const { error } = await supabase.from("meme").insert({
         user_id: user_id,
         img_src: `${
           process.env.REACT_APP_SUPABASE_URL +
@@ -97,7 +97,7 @@ export const MemCreator = () => {
     }
   };
 
-  const handleSaveMem = async () => {
+  const handleSaveMeme = async () => {
     const fileName = `${+new Date()}.jpg`;
     const blob = await convertHtmlToImage();
     if (!blob) return;
@@ -108,14 +108,14 @@ export const MemCreator = () => {
     const { data, error } = await saveFileInStorage(fileName, blob);
     if (data && data.path) {
       alert("zapisano");
-      handleAddMem(user_id, data.path);
+      handleAddMeme(user_id, data.path);
     }
     if (error) {
       alert("ERROR");
     }
   };
 
-  const handleChangeImage = (img: MemImageType) => {
+  const handleChangeImage = (img: MemeImageType) => {
     setSelectedImage(img);
   };
 
@@ -139,7 +139,7 @@ export const MemCreator = () => {
         />
       </div>
       <div className={s.selectImage}>
-        {memImages.map((img, id) => (
+        {memesImages.map((img, id) => (
           <button
             key={id}
             onClick={() => handleChangeImage(img)}
@@ -153,11 +153,11 @@ export const MemCreator = () => {
 
       <div ref={ref} className={s.inner}>
         <div className={s.textTop}>{textTop}</div>
-        <img className={s.memImage} src={selectedImage.bg} alt="" />
+        <img className={s.memeImage} src={selectedImage.bg} alt="" />
         <div className={s.textBottom}>{textBottom}</div>
       </div>
 
-      <Button onClick={handleSubmit(handleSaveMem)}>Wyślij</Button>
+      <Button onClick={handleSubmit(handleSaveMeme)}>Wyślij</Button>
     </form>
   );
 };

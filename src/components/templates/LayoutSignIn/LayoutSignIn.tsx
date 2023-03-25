@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { HeaderSignIn } from "components/orgnisms/HeaderSignIn/HeaderSignIn";
 import { Footer } from "components/orgnisms/Footer/Footer";
 

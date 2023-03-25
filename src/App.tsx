@@ -1,5 +1,5 @@
 import { ModalContextProvider } from "context/ModalContext";
-import { MemContextProvider } from "context/MemsContext";
+import { MemesContextProvider } from "context/MemesContext";
 import { PrivateRoutes } from "components/PrivateRoutes/PrivateRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
@@ -8,7 +8,7 @@ import { ErrorModal } from "components/molecules/ErrorModal/ErrorModal";
 function App() {
   return (
     <ModalContextProvider>
-      <MemContextProvider>
+      <MemesContextProvider>
         <div className="App">
           <Router>
             <Routes>
@@ -20,7 +20,7 @@ function App() {
           </Router>
           <ErrorModal />
         </div>
-      </MemContextProvider>
+      </MemesContextProvider>
     </ModalContextProvider>
   );
 }

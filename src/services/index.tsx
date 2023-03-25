@@ -2,18 +2,18 @@ import supabase from "config/supabaseClient";
 import { Session, User, AuthError } from "@supabase/gotrue-js";
 import { getFileNameFromSrc } from "../utils/index";
 import { ErrorModalType } from "context/ModalContext";
-import { MemType } from "context/MemsContext";
+import { MemeType } from "context/MemesContext";
 import { PostgrestError } from "@supabase/supabase-js";
-interface FetchMemsInterface {
-  onSuccess: (data: MemType[] | any) => void;
+interface FetchMemesInterface {
+  onSuccess: (data: MemeType[] | any) => void;
   onFailure: (error: PostgrestError) => void;
 }
 
-export const fetchMems = async ({
+export const fetchMemes = async ({
   onSuccess,
   onFailure,
-}: FetchMemsInterface): Promise<void> => {
-  const { data, error } = await supabase.from("mem").select();
+}: FetchMemesInterface): Promise<void> => {
+  const { data, error } = await supabase.from("meme").select();
   if (data) {
     onSuccess(data);
   }
@@ -22,35 +22,36 @@ export const fetchMems = async ({
   }
 };
 
-interface RemoveMemInterface {
+interface RemoveMemeInterface {
   onSuccess: () => void;
   onFailure: () => void;
-  mem: { img_src: string; id: string };
+  meme: { img_src: string; id: string };
 }
 
-export const removeMem = async ({
+export const removeMeme = async ({
   onSuccess,
   onFailure,
-  mem,
-}: RemoveMemInterface): Promise<void> => {
-  Promise.all([removeFromTables(mem.id), removeFromStorage(mem.img_src)]).then(
-    ([removeFormTables, removeFormStorage]) => {
-      if (removeFormTables.error === null && removeFormStorage.error === null) {
-        onSuccess();
-      } else {
-        onFailure();
-      }
+  meme,
+}: RemoveMemeInterface): Promise<void> => {
+  Promise.all([
+    removeFromTables(meme.id),
+    removeFromStorage(meme.img_src),
+  ]).then(([removeFormTables, removeFormStorage]) => {
+    if (removeFormTables.error === null && removeFormStorage.error === null) {
+      onSuccess();
+    } else {
+      onFailure();
     }
-  );
+  });
 };
 
 export const removeFromTables = async (id: string) => {
-  return await supabase.from("mem").delete().match({ id });
+  return await supabase.from("meme").delete().match({ id });
 };
 
 const removeFromStorage = async (img_src: string) => {
   return await supabase.storage
-    .from("mems")
+    .from("memes")
     .remove([getFileNameFromSrc(img_src)]);
 };
 
