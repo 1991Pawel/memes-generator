@@ -6,7 +6,7 @@ interface PasswordStrengthBarProps {
 }
 
 const passwordType = {
-  week: { message: "Słabe", color: "red", colorBar: 1 },
+  weak: { message: "Słabe", color: "red", colorBar: 1 },
   medium: { message: "Średnie", color: "#FFC72C", colorBar: 3 },
   strong: { message: "Śilne", color: "#00AB66", colorBar: 4 },
 };
@@ -34,7 +34,7 @@ export const PasswordStrengthBar = ({
   const getActiveStrength = () => {
     if (verifiedList.length === 5) return passwordType.strong;
     if (verifiedList.length >= 2) return passwordType.medium;
-    return passwordType.week;
+    return passwordType.weak;
   };
   const activeStrength = getActiveStrength();
   const barNumber = new Array(4).fill(false);
