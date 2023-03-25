@@ -3,10 +3,16 @@ import dayjs from "dayjs";
 import "dayjs/locale/pl"; // import locale
 import realtiveTime from "dayjs/plugin/relativeTime";
 import { getUserFromSession } from "../../../utils/index";
+import { MemType } from "context/MemsContext";
 dayjs.locale("pl");
 dayjs.extend(realtiveTime);
 
-export const MemCard = ({ mem, handleRemoveMem }: any) => {
+interface MemCardType {
+  mem: MemType;
+  handleRemoveMem: (id: string, img_src: string) => void;
+}
+
+export const MemCard = ({ mem, handleRemoveMem }: MemCardType) => {
   const user = getUserFromSession();
   const myId = user?.user.id;
   const itsMyPost = myId === mem.user_id;

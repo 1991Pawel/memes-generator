@@ -5,6 +5,7 @@ import {
   ReactNode,
   SetStateAction,
 } from "react";
+import { PostgrestError } from "@supabase/supabase-js";
 import { useContext } from "react";
 import { fetchMems } from "services";
 
@@ -27,12 +28,12 @@ export const MemContextProvider = ({ children }: { children: ReactNode }) => {
   const onSuccess = (data: MemType[]) => {
     setMems(data);
   };
-  const onFailure = (error: string) => {
+  const onFailure = (error: PostgrestError) => {
     console.log(error);
   };
 
   useEffect(() => {
-    fetchMems(onSuccess, onFailure);
+    fetchMems({ onSuccess, onFailure });
   }, []);
 
   return (

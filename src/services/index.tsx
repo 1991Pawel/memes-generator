@@ -2,10 +2,17 @@ import supabase from "config/supabaseClient";
 import { Session, User, AuthError } from "@supabase/gotrue-js";
 import { getFileNameFromSrc } from "../utils/index";
 import { ErrorModalType } from "context/ModalContext";
-export const fetchMems = async (
-  onSuccess: (data: any) => void,
-  onFailure: (error: any) => void
-): Promise<void> => {
+import { MemType } from "context/MemsContext";
+import { PostgrestError } from "@supabase/supabase-js";
+interface FetchMemsInterface {
+  onSuccess: (data: MemType[] | any) => void;
+  onFailure: (error: PostgrestError) => void;
+}
+
+export const fetchMems = async ({
+  onSuccess,
+  onFailure,
+}: FetchMemsInterface): Promise<void> => {
   const { data, error } = await supabase.from("mem").select();
   if (data) {
     onSuccess(data);

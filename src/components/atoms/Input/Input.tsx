@@ -9,8 +9,6 @@ interface InputTypes {
   errors: any;
 }
 
-
-
 export const Input = ({
   name,
   label,
