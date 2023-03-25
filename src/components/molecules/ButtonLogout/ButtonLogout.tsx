@@ -15,7 +15,7 @@ export const ButtonLogout = ({ children }: ButtonLogoutProps) => {
     navigate("/", { replace: true });
   };
   return (
-    <Button onClick={() => logout()} color="secondary">
+    <Button onClick={logout} color="secondary">
       {children}
     </Button>
   );
