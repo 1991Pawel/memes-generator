@@ -23,7 +23,7 @@ export const PasswordStrengthBar = ({
   };
 
   //rules
-  strengthChecks.length = passwordValue.length >= 8 ? true : false;
+  strengthChecks.length = passwordValue.length >= 8;
   strengthChecks.hasUpperCase = /[A-Z]+/.test(passwordValue);
   strengthChecks.hasLowerCase = /[a-z]+/.test(passwordValue);
   strengthChecks.hasDigit = /[0-9]+/.test(passwordValue);
@@ -31,12 +31,12 @@ export const PasswordStrengthBar = ({
 
   const verifiedList = Object.values(strengthChecks).filter((value) => value);
 
-  const getActiveStrength = () => {
+  const getCurrentStrength = () => {
     if (verifiedList.length === 5) return passwordType.strong;
     if (verifiedList.length >= 2) return passwordType.medium;
     return passwordType.weak;
   };
-  const activeStrength = getActiveStrength();
+  const currentStrength = getCurrentStrength();
   const barNumber = new Array(4).fill(false);
 
   return (
@@ -47,14 +47,14 @@ export const PasswordStrengthBar = ({
             className={s.bar}
             style={{
               background:
-                activeStrength.barNumber > i ? activeStrength.color : "",
+                currentStrength.barNumber > i ? currentStrength.color : "",
             }}
             key={i}
           ></span>
         );
       })}
 
-      <p className={s.desc}>{activeStrength.message}</p>
+      <p className={s.desc}>{currentStrength.message}</p>
     </div>
   );
 };

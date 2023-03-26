@@ -3,10 +3,13 @@ import { LoginForm } from "../../molecules/LoginForm/LoginForm";
 import { useModalContext } from "context/ModalContext";
 
 export const LoginFormModal = () => {
-  const { handleCloseLoginForm, isOpenLoginForm } = useModalContext();
+  const { modalTypeVariants, modalState, handleCloseModal } = useModalContext();
 
   return (
-    <Modal isOpen={isOpenLoginForm} onClose={handleCloseLoginForm}>
+    <Modal
+      isOpen={modalState.login.isOpen}
+      onClose={() => handleCloseModal(modalTypeVariants.login)}
+    >
       <LoginForm />
     </Modal>
   );

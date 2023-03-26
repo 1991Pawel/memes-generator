@@ -97,7 +97,7 @@ interface LoginUserProps {
   password: string;
   navigate: (a: string, b: { replace: boolean }) => void;
   handleError: (error: ErrorModalType) => void;
-  handleCloseLoginForm: () => void;
+  handleCloseModal: (modalType: string) => void;
   onSuccess: (data: UserData) => void;
   onFailure: (error: AuthError) => void;
 }

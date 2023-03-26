@@ -12,6 +12,7 @@ export interface ErrorModalType {
 
 interface ModalState {
   isOpenLoginForm: boolean;
+  modalState: any;
   handleOpenLoginForm: () => void;
   handleCloseLoginForm: () => void;
   isOpenRegisterForm: boolean;
@@ -22,7 +23,16 @@ interface ModalState {
   handleOpenErrorModal: () => void;
   handleError: (error: ErrorModalType) => void;
   error: ErrorModalType;
+  handleOpenModal: (modalType: string, payload?: any) => void;
+  handleCloseModal: (modalType: string) => void;
+  modalTypeVariants: any;
 }
+
+export const modalTypeVariants = {
+  login: "login",
+  register: "register",
+  registerSuccesfully: "registerSuccesfully",
+};
 
 export const ModalContext = createContext<ModalState | null>(null);
 
@@ -33,6 +43,37 @@ export const ModalContextProvider = ({
   const [isOpenRegisterForm, setIsOpenRegisterForm] = useState(false);
   const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
   const [error, setError] = useState({ message: "", name: "" });
+
+  const [modalState, setModalState] = useState({
+    register: {
+      isOpen: false,
+    },
+    registerSuccesfully: {
+      isOpen: false,
+    },
+    login: {
+      isOpen: false,
+    },
+  });
+
+  const handleOpenModal = (modalType: string, payload: any) => {
+    setModalState({
+      ...modalState,
+      [modalType]: {
+        isOpen: true,
+        ...payload,
+      },
+    });
+  };
+
+  const handleCloseModal = (modalType: string) => {
+    setModalState({
+      ...modalState,
+      [modalType]: {
+        isOpen: false,
+      },
+    });
+  };
 
   const handleOpenLoginForm = () => {
     setIsOpenLoginForm(true);
@@ -62,6 +103,10 @@ export const ModalContextProvider = ({
   return (
     <ModalContext.Provider
       value={{
+        modalState,
+        handleOpenModal,
+        handleCloseModal,
+        modalTypeVariants,
         isOpenLoginForm,
         handleOpenLoginForm,
         handleCloseLoginForm,

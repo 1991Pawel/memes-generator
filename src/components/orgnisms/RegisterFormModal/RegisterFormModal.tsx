@@ -6,7 +6,13 @@ import { RegisterSuccess } from "components/molecules/RegisterSucess/RegisterSuc
 
 export const RegisterModalForm = () => {
   const [registerSuccesfully, setRegisterSucessfully] = useState(false);
-  const { isOpenRegisterForm, handleCloseRegisterForm } = useModalContext();
+  const {
+    isOpenRegisterForm,
+    handleCloseRegisterForm,
+    modalState,
+    modalTypeVariants,
+    handleCloseModal,
+  } = useModalContext();
 
   const handleRegisterSucessfuly = () => {
     setRegisterSucessfully(true);
@@ -17,15 +23,20 @@ export const RegisterModalForm = () => {
 
   return (
     <>
-      <Modal isOpen={isOpenRegisterForm} onClose={handleCloseRegisterForm}>
+      <Modal
+        isOpen={modalState.register.isOpen}
+        onClose={() => handleCloseModal(modalTypeVariants.register)}
+      >
         <RegisterForm handleRegisterSucessfuly={handleRegisterSucessfuly} />
       </Modal>
       <Modal
-        isOpen={registerSuccesfully}
-        onClose={handleCloseRegisterSucessfuly}
+        isOpen={modalState.registerSuccesfully.isOpen}
+        onClose={() => handleCloseModal(modalTypeVariants.registerSuccesfully)}
       >
         <RegisterSuccess
-          handleCloseRegisterSucessfuly={handleCloseRegisterSucessfuly}
+          handleCloseRegisterSucessfuly={() =>
+            handleCloseModal(modalTypeVariants.registerSuccesfully)
+          }
         />
       </Modal>
     </>

@@ -6,7 +6,7 @@ import s from "./LoginForm.module.css";
 import { loginUser } from "../../../services";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useModalContext } from "context/ModalContext";
+import { modalTypeVariants, useModalContext } from "context/ModalContext";
 import { Session, User, AuthError } from "@supabase/gotrue-js";
 import { saveUserToSession } from "utils";
 
@@ -26,7 +26,8 @@ type FormValues = yup.InferType<typeof schema>;
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const { handleError, handleCloseLoginForm } = useModalContext();
+  const { handleError, handleCloseModal } = useModalContext();
+  // const { modalTypeVariants, modalState, handleCloseModal } = useModalContext();
   const {
     register,
     handleSubmit,
@@ -36,7 +37,7 @@ export const LoginForm = () => {
   });
 
   const onSuccess = (data: UserData) => {
-    handleCloseLoginForm();
+    handleCloseModal(modalTypeVariants.login);
     saveUserToSession(data);
     navigate("/dashboard", { replace: true });
   };
@@ -51,7 +52,7 @@ export const LoginForm = () => {
       password,
       navigate,
       handleError,
-      handleCloseLoginForm,
+      handleCloseModal,
       onSuccess,
       onFailure,
     });
