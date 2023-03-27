@@ -8,6 +8,7 @@ import { registerUser } from "../../../services";
 import { useModalContext } from "context/ModalContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Session, User, AuthError } from "@supabase/gotrue-js";
+import { useEffect } from "react";
 
 const schema = yup
   .object({
@@ -29,14 +30,10 @@ const schema = yup
 
 type FormValues = yup.InferType<typeof schema>;
 
-interface RegisterFormTypes {
-  handleRegisterSucessfuly: () => void;
-}
 
-export const RegisterForm = ({
-  handleRegisterSucessfuly,
-}: RegisterFormTypes) => {
-  const { handleError, handleCloseRegisterForm } = useModalContext();
+
+export const RegisterForm = () => {
+  const { handleError, modalState,handleCloseModal ,modalTypeVariants,handleOpenModal} = useModalContext();
   const {
     register,
     handleSubmit,
@@ -55,13 +52,21 @@ export const RegisterForm = ({
     handleError(error);
   };
   const onSuccess = (data: UserData) => {
-    handleCloseRegisterForm();
-    handleRegisterSucessfuly();
+    // handleCloseModal(modalTypeVariants.register)
+    // handleOpenModal(modalTypeVariants.registerSuccesfully)
   };
+
+
+
+  
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { password, email, userName } = data;
-    registerUser({ password, email, onFailure, onSuccess, userName });
+    console.log(modalState,'STATE bef')
+        handleCloseModal(modalTypeVariants.register)
+        handleOpenModal(modalTypeVariants.registerSuccesfully)
+     console.log(modalState,'STATE af')
+    // registerUser({ password, email, onFailure, onSuccess, userName });
   };
 
   return (

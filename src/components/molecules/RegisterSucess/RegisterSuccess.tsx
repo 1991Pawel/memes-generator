@@ -2,18 +2,14 @@ import s from "./RegisterSucess.module.css";
 import { Button } from "components/atoms/Button/Button";
 import { useModalContext } from "context/ModalContext";
 
-interface RegisterSucessProps {
-  handleCloseRegisterSucessfuly: () => void;
-}
 
-export const RegisterSuccess = ({
-  handleCloseRegisterSucessfuly,
-}: RegisterSucessProps) => {
-  const { handleOpenLoginForm } = useModalContext();
+
+export const RegisterSuccess = () => {
+  const { handleOpenModal,handleCloseModal,modalTypeVariants } = useModalContext();
 
   const handleClick = () => {
-    handleCloseRegisterSucessfuly();
-    handleOpenLoginForm();
+    handleCloseModal(modalTypeVariants.registerSuccesfully);
+    handleOpenModal(modalTypeVariants.login)
   };
 
   return (

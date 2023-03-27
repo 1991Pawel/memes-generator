@@ -2,7 +2,7 @@ import s from "./Header.module.css";
 import { Button } from "components/atoms/Button/Button";
 import { useModalContext } from "context/ModalContext";
 export const Header = () => {
-  const { handleOpenLoginForm, handleOpenModal, modalTypeVariants } =
+  const { handleOpenModal, modalTypeVariants } =
     useModalContext();
   return (
     <header className={s.header}>

@@ -11,13 +11,7 @@ export interface ErrorModalType {
 }
 
 interface ModalState {
-  isOpenLoginForm: boolean;
   modalState: any;
-  handleOpenLoginForm: () => void;
-  handleCloseLoginForm: () => void;
-  isOpenRegisterForm: boolean;
-  handleOpenRegisterForm: () => void;
-  handleCloseRegisterForm: () => void;
   isOpenErrorModal: boolean;
   handleCloseErrorModal: () => void;
   handleOpenErrorModal: () => void;
@@ -39,8 +33,7 @@ export const ModalContext = createContext<ModalState | null>(null);
 export const ModalContextProvider = ({
   children,
 }: ModalContextProviderProps) => {
-  const [isOpenLoginForm, setIsOpenLoginForm] = useState(false);
-  const [isOpenRegisterForm, setIsOpenRegisterForm] = useState(false);
+
   const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
   const [error, setError] = useState({ message: "", name: "" });
 
@@ -49,7 +42,7 @@ export const ModalContextProvider = ({
       isOpen: false,
     },
     registerSuccesfully: {
-      isOpen: false,
+      isOpen:false,
     },
     login: {
       isOpen: false,
@@ -57,37 +50,28 @@ export const ModalContextProvider = ({
   });
 
   const handleOpenModal = (modalType: string, payload: any) => {
-    setModalState({
-      ...modalState,
-      [modalType]: {
-        isOpen: true,
-        ...payload,
-      },
-    });
+    setModalState((prevState) => ({
+        ...prevState,
+        [modalType]: {
+          isOpen: true,
+          ...payload,
+        },
+      
+    }));
   };
 
   const handleCloseModal = (modalType: string) => {
-    setModalState({
-      ...modalState,
-      [modalType]: {
-        isOpen: false,
-      },
-    });
+    setModalState((prevState) => ({
+        ...prevState,
+        [modalType]: {
+          isOpen: false,
+        },
+    }))
   };
 
-  const handleOpenLoginForm = () => {
-    setIsOpenLoginForm(true);
-  };
-  const handleCloseLoginForm = () => {
-    setIsOpenLoginForm(false);
-  };
 
-  const handleOpenRegisterForm = () => {
-    setIsOpenRegisterForm(true);
-  };
-  const handleCloseRegisterForm = () => {
-    setIsOpenRegisterForm(false);
-  };
+
+
 
   const handleOpenErrorModal = () => {
     setIsOpenErrorModal(true);
@@ -107,12 +91,6 @@ export const ModalContextProvider = ({
         handleOpenModal,
         handleCloseModal,
         modalTypeVariants,
-        isOpenLoginForm,
-        handleOpenLoginForm,
-        handleCloseLoginForm,
-        isOpenRegisterForm,
-        handleOpenRegisterForm,
-        handleCloseRegisterForm,
         isOpenErrorModal,
         handleOpenErrorModal,
         handleCloseErrorModal,
