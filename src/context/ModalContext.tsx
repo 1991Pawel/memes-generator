@@ -12,11 +12,6 @@ export interface ErrorModalType {
 
 interface ModalState {
   modalState: any;
-  isOpenErrorModal: boolean;
-  handleCloseErrorModal: () => void;
-  handleOpenErrorModal: () => void;
-  handleError: (error: ErrorModalType) => void;
-  error: ErrorModalType;
   handleOpenModal: (modalType: string, payload?: any) => void;
   handleCloseModal: (modalType: string) => void;
   modalTypeVariants: any;
@@ -26,6 +21,7 @@ export const modalTypeVariants = {
   login: "login",
   register: "register",
   registerSuccesfully: "registerSuccesfully",
+  error: "error",
 };
 
 export const ModalContext = createContext<ModalState | null>(null);
@@ -33,55 +29,38 @@ export const ModalContext = createContext<ModalState | null>(null);
 export const ModalContextProvider = ({
   children,
 }: ModalContextProviderProps) => {
-
-  const [isOpenErrorModal, setIsOpenErrorModal] = useState(false);
-  const [error, setError] = useState({ message: "", name: "" });
-
   const [modalState, setModalState] = useState({
     register: {
       isOpen: false,
     },
     registerSuccesfully: {
-      isOpen:false,
+      isOpen: false,
     },
     login: {
+      isOpen: false,
+    },
+    error: {
       isOpen: false,
     },
   });
 
   const handleOpenModal = (modalType: string, payload: any) => {
     setModalState((prevState) => ({
-        ...prevState,
-        [modalType]: {
-          isOpen: true,
-          ...payload,
-        },
-      
+      ...prevState,
+      [modalType]: {
+        isOpen: true,
+        errorType: { ...payload },
+      },
     }));
   };
 
   const handleCloseModal = (modalType: string) => {
     setModalState((prevState) => ({
-        ...prevState,
-        [modalType]: {
-          isOpen: false,
-        },
-    }))
-  };
-
-
-
-
-
-  const handleOpenErrorModal = () => {
-    setIsOpenErrorModal(true);
-  };
-  const handleCloseErrorModal = () => {
-    setIsOpenErrorModal(false);
-  };
-  const handleError = (error: ErrorModalType) => {
-    handleOpenErrorModal();
-    setError(error);
+      ...prevState,
+      [modalType]: {
+        isOpen: false,
+      },
+    }));
   };
 
   return (
@@ -91,11 +70,6 @@ export const ModalContextProvider = ({
         handleOpenModal,
         handleCloseModal,
         modalTypeVariants,
-        isOpenErrorModal,
-        handleOpenErrorModal,
-        handleCloseErrorModal,
-        handleError,
-        error,
       }}
     >
       {children}

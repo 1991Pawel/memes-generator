@@ -31,13 +31,8 @@ const schema = yup
 type FormValues = yup.InferType<typeof schema>;
 
 export const RegisterForm = () => {
-  const {
-    handleError,
-    modalState,
-    handleCloseModal,
-    modalTypeVariants,
-    handleOpenModal,
-  } = useModalContext();
+  const { modalState, handleCloseModal, modalTypeVariants, handleOpenModal } =
+    useModalContext();
   const {
     register,
     handleSubmit,
@@ -53,7 +48,7 @@ export const RegisterForm = () => {
   }
 
   const onFailure = (error: AuthError) => {
-    handleError(error);
+    // handleOpenModal(modalTypeVariants.error, error);
   };
   const onSuccess = (data: UserData) => {
     handleCloseModal(modalTypeVariants.register);

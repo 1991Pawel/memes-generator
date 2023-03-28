@@ -26,7 +26,8 @@ type FormValues = yup.InferType<typeof schema>;
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const { handleError, handleCloseModal } = useModalContext();
+  const { handleCloseModal, modalTypeVariants, handleOpenModal } =
+    useModalContext();
   // const { modalTypeVariants, modalState, handleCloseModal } = useModalContext();
   const {
     register,
@@ -42,7 +43,8 @@ export const LoginForm = () => {
     navigate("/dashboard", { replace: true });
   };
   const onFailure = (error: AuthError) => {
-    handleError(error);
+    console.log(error, "ERR");
+    handleOpenModal(modalTypeVariants.error, error);
   };
 
   const onSubmit = (data: FormValues) => {
@@ -50,9 +52,6 @@ export const LoginForm = () => {
     loginUser({
       email,
       password,
-      navigate,
-      handleError,
-      handleCloseModal,
       onSuccess,
       onFailure,
     });

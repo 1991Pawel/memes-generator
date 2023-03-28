@@ -1,20 +1,25 @@
 import { Modal } from "components/atoms/Modal/Modal";
-import { useModalContext } from "context/ModalContext";
+import { modalTypeVariants, useModalContext } from "context/ModalContext";
 import s from "./ErrorModal.module.css";
 import { Button } from "components/atoms/Button/Button";
 
 export const ErrorModal = () => {
-  const { isOpenErrorModal, handleCloseErrorModal, error } = useModalContext();
+  const { modalState, handleCloseModal } = useModalContext();
 
-  const { message, name } = error;
   return (
-    <Modal isOpen={isOpenErrorModal} onClose={handleCloseErrorModal}>
+    <Modal
+      isOpen={modalState.error.isOpen}
+      onClose={() => handleCloseModal(modalTypeVariants.error)}
+    >
       <div className={s.inner}>
         <div className={s.content}>
-          <h2 className={s.title}>{name}</h2>
-          <p className={s.desc}>{message}</p>
+          <h2 className={s.title}>{modalState.error?.errorType?.name}</h2>
+          <p className={s.desc}>{modalState.error?.errorType?.status}</p>
         </div>
-        <Button color="primary" onClick={handleCloseErrorModal}>
+        <Button
+          color="primary"
+          onClick={() => handleCloseModal(modalTypeVariants.error)}
+        >
           Zamknij
         </Button>
       </div>

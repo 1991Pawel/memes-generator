@@ -95,9 +95,6 @@ export const registerUser = async ({
 interface LoginUserProps {
   email: string;
   password: string;
-  navigate: (a: string, b: { replace: boolean }) => void;
-  handleError: (error: ErrorModalType) => void;
-  handleCloseModal: (modalType: string) => void;
   onSuccess: (data: UserData) => void;
   onFailure: (error: AuthError) => void;
 }
