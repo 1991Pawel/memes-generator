@@ -112,7 +112,7 @@ export const loginUser = async ({
     email,
     password,
   });
-  if (data) {
+  if (data.user) {
     onSuccess(data);
   }
   if (error) {
