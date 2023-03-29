@@ -43,7 +43,6 @@ export const LoginForm = () => {
     navigate("/dashboard", { replace: true });
   };
   const onFailure = (error: AuthError) => {
-    console.log(error, "ERR");
     handleOpenModal(modalTypeVariants.error, error);
   };
 

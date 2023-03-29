@@ -14,8 +14,10 @@ interface ModalState {
   modalState: any;
   handleOpenModal: (modalType: string, payload?: any) => void;
   handleCloseModal: (modalType: string) => void;
-  modalTypeVariants: any;
+  modalTypeVariants: {[key:string]:string};
 }
+
+
 
 export const modalTypeVariants = {
   login: "login",
