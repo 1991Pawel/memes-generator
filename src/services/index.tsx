@@ -1,10 +1,9 @@
 import supabase from "config/supabaseClient";
 import { Session, User, AuthError } from "@supabase/gotrue-js";
 import { getFileNameFromSrc } from "../utils/index";
-import { ErrorModalType } from "context/ModalContext";
 import { MemeType } from "context/MemesContext";
 import { PostgrestError } from "@supabase/supabase-js";
-interface FetchMemesInterface {
+interface FetchMemes {
   onSuccess: (data: MemeType[] | any) => void;
   onFailure: (error: PostgrestError) => void;
 }
@@ -12,7 +11,7 @@ interface FetchMemesInterface {
 export const fetchMemes = async ({
   onSuccess,
   onFailure,
-}: FetchMemesInterface): Promise<void> => {
+}: FetchMemes): Promise<void> => {
   const { data, error } = await supabase.from("meme").select();
   if (data) {
     onSuccess(data);
