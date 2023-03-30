@@ -12,12 +12,10 @@ export interface ErrorModalType {
 
 interface ModalState {
   modalState: any;
-  handleOpenModal: (modalType: string, payload?: any) => void;
+  handleOpenModal: (modalType: string, payload?: object | undefined) => void;
   handleCloseModal: (modalType: string) => void;
-  modalTypeVariants: {[key:string]:string};
+  modalTypeVariants: { [key: string]: string };
 }
-
-
 
 export const modalTypeVariants = {
   login: "login",
@@ -46,7 +44,7 @@ export const ModalContextProvider = ({
     },
   });
 
-  const handleOpenModal = (modalType: string, payload: any) => {
+  const handleOpenModal = (modalType: string, payload: object | undefined) => {
     setModalState((prevState) => ({
       ...prevState,
       [modalType]: {

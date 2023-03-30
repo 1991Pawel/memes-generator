@@ -1,13 +1,12 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FieldError, UseFormRegister } from "react-hook-form";
 import s from "./Input.module.css";
-import { FormValues } from "components/molecules/LoginForm/LoginForm";
 
 interface InputTypes {
   name: string;
   label: string;
   placeholder: string;
   register: UseFormRegister<any>;
-  errors: any;
+  errors: FieldError | any;
 }
 
 export const Input = ({
