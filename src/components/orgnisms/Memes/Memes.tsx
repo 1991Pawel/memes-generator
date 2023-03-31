@@ -8,11 +8,10 @@ export const Memes = () => {
 
   const onSuccess = () => {
     console.log("success");
-    alert("success");
+    // alert("success");
   };
   const onFailure = () => {
-    console.log("fail");
-    alert("fail");
+    // alert("fail");
   };
 
   const handleRemoveMeme = (meme: MemeType) => {
