@@ -1,21 +1,21 @@
-import { FieldError, UseFormRegister } from "react-hook-form";
+import { FieldError,FieldErrors, FieldValues, Path, UseFormRegister } from "react-hook-form";
 import s from "./Input.module.css";
 
-interface InputTypes {
-  name: string;
+interface InputTypes<T extends FieldValues> {
+  name: Path<T>;
   label: string;
   placeholder: string;
-  register: UseFormRegister<any>;
-  errors: FieldError | any;
+  register: UseFormRegister<T>;
+  errors: FieldErrors;
 }
 
-export const Input = ({
+export const Input = <T extends FieldValues>({
   name,
   label,
   register,
   errors,
   ...rest
-}: InputTypes) => {
+}: InputTypes<T>) => {
   const withError = errors ? errors[`${name}`] : null;
   return (
     <div className={s.wrapper}>
@@ -23,7 +23,7 @@ export const Input = ({
         {label}
       </label>
       <input {...register(name)} className={s.input} {...rest}></input>
-      {withError && <span className={s.error}>{withError.message}</span>}
+      {withError && <span className={s.error}>{withError?.message?.toString()}</span>}
     </div>
   );
 };
