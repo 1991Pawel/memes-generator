@@ -69,7 +69,7 @@ export const RegisterForm = () => {
         label="Nazwa użytkownika"
         name="userName"
         register={register}
-        errors={errors}
+        error={errors["userName"]}
       />
 
       <Input
@@ -77,7 +77,7 @@ export const RegisterForm = () => {
         label="Email"
         name="email"
         register={register}
-        errors={errors}
+        error={errors["email"]}
       />
 
       <Input
@@ -85,7 +85,7 @@ export const RegisterForm = () => {
         label="Hasło"
         name="password"
         register={register}
-        errors={errors}
+        error={errors["password"]}
       />
 
       <PasswordStrengthBar passwordValue={watch("password")} />

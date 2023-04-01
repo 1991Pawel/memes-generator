@@ -64,7 +64,7 @@ export const LoginForm = () => {
         label="Email"
         name="email"
         register={register}
-        errors={errors}
+        error={errors["email"]}
       />
 
       <Input
@@ -72,7 +72,7 @@ export const LoginForm = () => {
         label="Hasło"
         name="password"
         register={register}
-        errors={errors}
+        error={errors["password"]}
       />
 
       <Button onClick={handleSubmit(onSubmit)}>Zaloguj</Button>

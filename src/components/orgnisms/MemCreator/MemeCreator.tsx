@@ -127,7 +127,7 @@ export const MemeCreator = () => {
           label="Górna Treść"
           name="top"
           register={register}
-          errors={errors}
+          error={errors["top"]}
         />
 
         <Input
@@ -135,7 +135,7 @@ export const MemeCreator = () => {
           label="Dolna Treść"
           name="bottom"
           register={register}
-          errors={errors}
+          error={errors["bottom"]}
         />
       </div>
       <div className={s.selectImage}>

@@ -1,4 +1,4 @@
-import { FieldError,FieldErrors, FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldValues, Path, UseFormRegister } from "react-hook-form";
 import s from "./Input.module.css";
 
 interface InputTypes<T extends FieldValues> {
@@ -6,24 +6,24 @@ interface InputTypes<T extends FieldValues> {
   label: string;
   placeholder: string;
   register: UseFormRegister<T>;
-  errors: FieldErrors;
+  error: FieldError | undefined;
 }
 
 export const Input = <T extends FieldValues>({
   name,
   label,
   register,
-  errors,
+  error,
   ...rest
 }: InputTypes<T>) => {
-  const withError = errors ? errors[`${name}`] : null;
+  const withError = error ? error : null;
   return (
     <div className={s.wrapper}>
       <label className={s.label} htmlFor={name}>
         {label}
       </label>
       <input {...register(name)} className={s.input} {...rest}></input>
-      {withError && <span className={s.error}>{withError?.message?.toString()}</span>}
+      {withError && <span className={s.error}>{withError?.message}</span>}
     </div>
   );
 };
