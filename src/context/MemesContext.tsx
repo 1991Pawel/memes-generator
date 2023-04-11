@@ -17,7 +17,8 @@ export interface MemeType {
 }
 interface ModalState {
   memes: MemeType[];
-  setMems: React.Dispatch<SetStateAction<MemeType[]>>;
+  onSuccess:(data: MemeType[]) => void
+  onFailure: (error: PostgrestError) => void
 }
 
 export const MemesContext = createContext<ModalState | null>(null);
@@ -32,12 +33,9 @@ export const MemesContextProvider = ({ children }: { children: ReactNode }) => {
     console.log(error);
   };
 
-  useEffect(() => {
-    fetchMemes({ onSuccess, onFailure });
-  }, []);
 
   return (
-    <MemesContext.Provider value={{ memes, setMems: setMemes }}>
+    <MemesContext.Provider value={{ memes,onSuccess,onFailure }}>
       {children}
     </MemesContext.Provider>
   );

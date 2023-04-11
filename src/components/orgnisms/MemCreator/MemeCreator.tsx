@@ -10,6 +10,8 @@ import image01 from "./img/01.jpg";
 import image02 from "./img/02.jpg";
 import image03 from "./img/03.jpg";
 import html2canvas from "html2canvas";
+import { useMemContext } from "context/MemesContext";
+import { fetchMemes } from "services";
 
 interface MemeImageType {
   id: number;
@@ -52,6 +54,9 @@ export const MemeCreator = () => {
   });
   const ref = useRef(null);
   const [textTop, textBottom] = watch(["top", "bottom"]);
+  const {onSuccess,onFailure} = useMemContext();
+
+ 
 
   const convertHtmlToImage = async () => {
     if (ref.current === null) return;
@@ -93,6 +98,8 @@ export const MemeCreator = () => {
       });
       if (error) {
         alert("błąd");
+      }else {
+        fetchMemes({onSuccess,onFailure})
       }
     }
   };
