@@ -80,7 +80,7 @@ export const ModalContextProvider = ({
 export const useModalContext = () => {
   const ctx = useContext(ModalContext);
   if (!ctx) {
-    throw new Error("You forgot CartStateContextProvider");
+    throw new Error("You forgot ModalContext Provider");
   }
   return ctx;
 };
