@@ -1,10 +1,29 @@
-# Getting Started with Create React App
+# Meme Creator Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple project that allows users to create memes, save them in a database, and manage their accounts.
+<img width="791" alt="Screenshot 2023-10-26 at 18 44 09" src="https://github.com/1991Pawel/memes-generator/assets/43860287/4ad7268f-6125-4d19-a014-8e7f3c2ef987">
+<img width="786" alt="Screenshot 2023-10-26 at 18 42 37" src="https://github.com/1991Pawel/memes-generator/assets/43860287/86628fba-59cd-442c-bdd9-087f0575689c">
 
-## Available Scripts
 
-In the project directory, you can run:
+## Technologies
+
+- TypeScript: Our project is written in TypeScript, providing static typing and better code scalability.
+
+- Atomic Design: The project uses the Atomic Design pattern to organize user interface components, helping to maintain clarity and code reusability.
+
+- Supabase: We use Supabase as both the database and authentication system, enabling meme storage and user account management.
+
+- HTML2Canvas: We use the HTML2Canvas library to generate images from our memes.
+
+## Features
+
+- User Registration and Login: Users can create new accounts and log in to existing ones.
+
+- Meme Creation: Users can create their own memes by customizing text and images.
+
+- Saving Memes in the Database: Created memes are stored in the Supabase database.
+
+
 
 ### `npm start`
 
